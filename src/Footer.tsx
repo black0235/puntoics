@@ -22,9 +22,11 @@ export default function Footer() {
   };
 
   return (
-    <div className="flex flex-col bg-black items-center justify-center p-8 gap-2 shadow-lg">
+    <div className="flex flex-col bg-custom-brown items-center justify-center p-8 gap-2 shadow-lg">
       <div className="flex flex-col md:flex-row items-center gap-8 scale-75">
-        <p className="oswald text-white text-4xl md:text-6xl">ADVANCED FITNESS</p>
+        <p className="oswald text-white text-4xl md:text-6xl">
+          PUNTO ICS DELIVERY
+        </p>
 
         <form
           className="flex flex-row border-2 border-white w-full rounded-lg p-4 bg-black"
@@ -62,7 +64,10 @@ export default function Footer() {
           <FaInstagram
             className="text-white text-4xl ml-4 cursor-pointer"
             onClick={() =>
-              window.open("https://www.instagram.com/advanced_fitness_", "_blank")
+              window.open(
+                "https://www.instagram.com/advanced_fitness_",
+                "_blank"
+              )
             }
           />
         </div>
