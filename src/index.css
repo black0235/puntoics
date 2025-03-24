@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.oswald {
+	font-family: "Lora", serif;
+	font-optical-sizing: auto;
+	font-weight: 500;
+	font-style: normal;
+}
+
+a {
+	font-weight: 500;
+	color: #592932;
+	text-decoration: inherit;
+}
+a:hover {
+	color: #592932;
+}
