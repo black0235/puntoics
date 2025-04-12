@@ -76,19 +76,24 @@ export default function Navbar() {
             activeSection === "about" ? "text-white border-white" : "text-white"
           }`}
         >
-          CHI SIAMO
+          NICOLOSI
         </button>
 
-        <button
-          onClick={() => handleNavigation("glutenfree")}
-          className={`oswald text-xl border-b-2 md:block hidden border-transparent hover:border-white transition-all duration-300 ease-in-out ${
-            activeSection === "glutenfree"
-              ? "text-white border-white"
-              : "text-white"
-          }`}
+       
+
+       
+
+        
+        <NavLink
+          to="/puntoics-delivery"
+          className={({ isActive }) =>
+            `oswald text-xl border-b-2 md:block hidden border-transparent hover:border-white  hover:!text-white transition-all duration-300 ease-in-out ${
+              isActive ? "text-white border-white" : "text-white"
+            }`
+          }
         >
-          SENZA GLUTINE
-        </button>
+          PUNTO ICS DELIVERY
+        </NavLink>
 
         <NavLink
           to="/menu"
@@ -98,8 +103,9 @@ export default function Navbar() {
             }`
           }
         >
-          MENÙ
+          LIQUOREMENTE
         </NavLink>
+
       </nav>
 
       {/* Bottone CONTATTACI */}
