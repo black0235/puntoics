@@ -7,14 +7,9 @@ import {
   Outlet,
 } from "react-router-dom";
 import App from "./App.tsx";
-import About from "./About.tsx";
-import Menu from "./Menu.tsx";
-import GlutenFree from "./GlutenFree.tsx";
-import Contact from "./Contact.tsx";
 import "./index.css";
-import "./App.css";
-import Footer from "./Footer.tsx";
-import Navbar from "./Navbar.tsx";
+import Footer from "./components/Footer.tsx";
+import Navbar from "./components/Navbar.tsx";
 import PuntoicsDelivery from "./PuntoicsDelivery.tsx";
 
 // import Payment from "./Payment.tsx";
@@ -30,19 +25,21 @@ const AuthLayout = () => {
 };
 
 const root = document.getElementById("root");
-createRoot(root!).render(
+
+if (!root) {
+  throw new Error("Root element not found");
+}
+
+createRoot(root).render(
   <StrictMode>
     <BrowserRouter>
       <Routes>
         <Route element={<AuthLayout />}>
           <Route index element={<App />} />
-          <Route path="puntoics-delivery" element={< PuntoicsDelivery/>} />
-          <Route path="about" element={<About />} />
-          <Route path="menu" element={<Menu />} />
-          <Route path="gluten-free" element={<GlutenFree />} />
-          <Route path="contact" element={<Contact />} />
+          <Route path="puntoics-delivery" element={<PuntoicsDelivery />} />
         </Route>
       </Routes>
     </BrowserRouter>
   </StrictMode>
 );
+

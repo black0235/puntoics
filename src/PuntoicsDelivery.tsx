@@ -9,7 +9,6 @@ import {
 } from "react-icons/fa";
 import { GiFullPizza, GiFurnace } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
-import "./App.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -84,51 +83,57 @@ function PuntoicsDelivery() {
           </div>
         </div>
 
-        {/* About Section */}
-        <div
-          className="flex flex-col md:flex-row items-center justify-center  md:m-24  md:rounded-2xl bg-transparent"
-          
-        >
-          <div className="w-full md:w-1/2 flex justify-center">
-            <img
-              src="pizzeria1.png"
-              alt="Pizzeria"
-              className="w-full max-w-md rounded-2xl h-full scale-100 object-cover shadow-xl transition-transform transform hover:scale-130"
-              data-aos="flip-left"
-            />
-          </div>
-          <div className="w-full m-6 text-center md:text-left mt-[-30px] p-6"
-          data-aos="fade-right"
-         >
-            <h1 className="oswald  font-semibold text-4xl md:text-6xl text-custom-brown mb-6 drop-shadow-lg">
-              Chi siamo?
-            </h1>
-            <p className="oswald text-2xl md:text-3xl mt-16 text-white leading-relaxed">
-              Noi di{" "}
-              <span className="font-semibold text-3xl text-custom-brown">
-                Punto ICS
-              </span>{" "}
-              siamo appassionati dell'arte della pizza. Ogni impasto è studiato
-              per offrirti un gusto unico, con ingredienti freschi e
-              selezionati.
-              <br />
-              <br />
-              <span className="font-semibold text-4xl md:text-5xl text-custom-brown">
-                Il nostro punto di forza?
-              </span>
-              <br />
-              <br />
-              Da noi trovi il gusto della tradizione e  <span className="font-semibold text-2xl md:text-3xl text-custom-brown">
-              l’originalità di proposte sempre nuove,
-              </span>{" "}  in un ambiente familiare dove ci si sente subito a casa.
-              Che tu venga per una cena tra amici, un pranzo veloce o una serata in compagnia, qui la pizza è sempre protagonista. {" "}
-              <span className="text-custom-brown text-4xl">
-                il senza glutine
-              </span>{" "}
-              più buono che tu abbia mai provato!
-            </p>
-          </div>
-        </div>
+      
+
+        <section className="bg-transparent py-16 px-6 md:py-24 md:px-12">
+  <div className="flex flex-col md:flex-row items-center justify-center gap-12 max-w-7xl mx-auto">
+    
+    {/* Immagine */}
+    <div className="w-full md:w-1/2 flex justify-center" data-aos="flip-left">
+      <img
+        src="pizzeria1.png"
+        alt="Pizzeria"
+        className="w-full max-w-lg rounded-3xl object-cover shadow-2xl hover:scale-105 transition-transform duration-500"
+      />
+    </div>
+
+    {/* Testo */}
+    <div
+      className="w-full md:w-1/2 flex flex-col justify-center items-center md:items-start text-center md:text-left gap-6"
+      data-aos="fade-left" // 👈 cambiato qui
+      data-aos-duration="1000" // 👈 durata più morbida
+    >
+      <h2 className="oswald text-4xl md:text-5xl text-white font-bold leading-tight">
+        Passione per la Pizza
+      </h2>
+
+      <p className="oswald text-2xl md:text-2xl text-white leading-relaxed">
+        Da <span className="text-custom-brown font-bold">Punto ICS</span>, ogni pizza è un'opera d'arte.  
+        Usiamo solo ingredienti freschi e selezionati per offrirti un gusto autentico e inconfondibile.
+      </p>
+
+      <h3 className="oswald text-3xl md:text-4xl text-custom-brown font-bold mt-4">
+        Il nostro punto di forza?
+      </h3>
+
+      <p className="oswald text-2xl md:text-2xl text-white leading-relaxed">
+        Uniamo la tradizione della pizza italiana con l'innovazione, proponendo nuove ricette e sapori 
+        in un ambiente accogliente e familiare.
+      </p>
+
+      <p className="oswald text-2xl md:text-2xl text-white leading-relaxed">
+        E per chi cerca alternative, offriamo un <span className="text-custom-brown font-bold">senza glutine</span> 
+        che conquista anche i palati più esigenti!
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
 
         {/* Servizi Section */}
         <h2 className="oswald text-center mt-7 text-white text-5xl md:text-8xl drop-shadow-lg">
@@ -282,7 +287,11 @@ function PuntoicsDelivery() {
         {/* Impasti Section */}
         <div className="bg-transparent flex flex-col md:flex-row items-center justify-center gap-10 p-8">
           <div className="flex w-full flex-col md:w-full mx-10 items-center text-center md:text-left">
-            <FaRegArrowAltCircleDown className="oswald text-5xl md:text-8xl animate-bounce text-custom-brown mb-8 font-bold drop-shadow-lg" />
+            <FaRegArrowAltCircleDown className="oswald text-5xl md:text-8xl animate-bounce text-custom-brown mb-8 font-bold drop-shadow-lg" onClick={() => {
+    const section = document.getElementById("menu");
+    section?.scrollIntoView({ behavior: "smooth" });
+  }} />
+
             <div className="flex flex-col md:flex-row m-6 p-3 items-center justify-around gap-12">
               <div className="relative group w-full md:w-1/3">
                 <img
@@ -309,17 +318,7 @@ function PuntoicsDelivery() {
           </div>
         </div>
 
-        {/* Recensioni dei Clienti */}
-        <section className="py-20 bg-custom-brown text-center">
-<h2 className="oswald text-5xl md:text-7xl font-bold  text-white  drop-shadow-lg">
-        Le Voci dei Nostri Ospiti
-      </h2>
-      <div
-        className="elfsight-app-184614d2-8dd3-46ea-9b47-a8e2a5fef0f5   mt-14 text-white mx-auto  oswald text-2xl md:text-3x leading-relaxed" 
-        data-elfsight-app-lazy
-      
-      ></div>
-    </section>
+       
 
         {/* Galleria Scorrimento */}
         {/* <section className="py-20 bg-custom-brown1 text-center">
@@ -413,7 +412,7 @@ function PuntoicsDelivery() {
       </a>
         </section>
 
-        <section className="py-20 bg-custom-brown1 text-center">
+        <section id="menu" className="py-20 bg-custom-brown1 text-center">
           <h2
             className="oswald text-5xl md:text-7xl font-bold text-white mb-12 drop-shadow-lg"
             data-aos="fade-up"
@@ -560,6 +559,19 @@ function PuntoicsDelivery() {
             </div>
           </div>
         </section>
+
+
+         {/* Recensioni dei Clienti */}
+         <section className="py-20 bg-custom-brown text-center">
+<h2 className="oswald text-5xl md:text-7xl font-bold  text-white  drop-shadow-lg">
+        Le Voci dei Nostri Ospiti
+      </h2>
+      <div
+        className="elfsight-app-184614d2-8dd3-46ea-9b47-a8e2a5fef0f5   mt-14 text-white mx-auto  oswald text-2xl md:text-3x leading-relaxed" 
+        data-elfsight-app-lazy
+      
+      ></div>
+    </section>
 
         <section className="py-20 bg-custom-brown1 flex flex-col md:flex-row items-center justify-center gap-5 p-5">
           <div className="flex flex-col m-6 w-full md:w-1/2 items-start">
