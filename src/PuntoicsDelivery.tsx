@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { motion } from "motion/react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import {
@@ -13,6 +14,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FaRegUser } from "react-icons/fa";
+import { Parallax } from "react-parallax";
 
 function PuntoicsDelivery() {
   const [count, setCount] = useState(0);
@@ -83,110 +85,104 @@ function PuntoicsDelivery() {
           </div>
         </div>
 
-      
-
         <section className="bg-transparent py-16 px-6 md:py-24 md:px-12">
-  <div className="flex flex-col md:flex-row items-center justify-center gap-12 max-w-7xl mx-auto">
-    
-    {/* Immagine */}
-    <div className="w-full md:w-1/2 flex justify-center" data-aos="flip-left">
-      <img
-        src="pizzeria1.png"
-        alt="Pizzeria"
-        className="w-full max-w-lg rounded-3xl object-cover shadow-2xl hover:scale-105 transition-transform duration-500"
-      />
-    </div>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-12 max-w-7xl mx-auto">
+            {/* Immagine */}
+            <div
+              className=" w-1/3 h-auto flex justify-center"
+              data-aos="flip-left"
+            >
+              <img
+                src="pizzeria1.png"
+                alt="Pizzeria"
+                className="w-full max-w-lg rounded-3xl object-cover shadow-2xl hover:scale-105 transition-transform duration-500"
+              />
+            </div>
 
-    {/* Testo */}
-    <div
-      className="w-full md:w-1/2 flex flex-col justify-center items-center md:items-start text-center md:text-left gap-6"
-      data-aos="fade-left" // 👈 cambiato qui
-      data-aos-duration="1000" // 👈 durata più morbida
-    >
-      <h2 className="oswald text-4xl md:text-5xl text-white font-bold leading-tight">
-        Passione per la Pizza
-      </h2>
+            {/* Testo */}
+            <div
+              className="w-full md:w-1/2 flex flex-col justify-center items-center md:items-start text-center md:text-left gap-6"
+              data-aos="fade-left" // 👈 cambiato qui
+              data-aos-duration="1000" // 👈 durata più morbida
+            >
+              <h2 className="oswald text-4xl md:text-5xl text-white font-bold leading-tight">
+                Passione per la Pizza
+              </h2>
 
-      <p className="oswald text-2xl md:text-2xl text-white leading-relaxed">
-        Da <span className="text-custom-brown font-bold">Punto ICS</span>, ogni pizza è un'opera d'arte.  
-        Usiamo solo ingredienti freschi e selezionati per offrirti un gusto autentico e inconfondibile.
-      </p>
+              <p className="oswald text-2xl md:text-2xl text-white leading-relaxed">
+                Da{" "}
+                <span className="text-custom-brown font-bold">Punto ICS</span>,
+                ogni pizza è un'opera d'arte. Usiamo solo ingredienti freschi e
+                selezionati per offrirti un gusto autentico e inconfondibile.
+              </p>
 
-      <h3 className="oswald text-3xl md:text-4xl text-custom-brown font-bold mt-4">
-        Il nostro punto di forza?
-      </h3>
+              <h3 className="oswald text-3xl md:text-4xl text-custom-brown font-bold mt-4">
+                Il nostro punto di forza?
+              </h3>
 
-      <p className="oswald text-2xl md:text-2xl text-white leading-relaxed">
-        Uniamo la tradizione della pizza italiana con l'innovazione, proponendo nuove ricette e sapori 
-        in un ambiente accogliente e familiare.
-      </p>
+              <p className="oswald text-2xl md:text-2xl text-white leading-relaxed">
+                Uniamo la tradizione della pizza italiana con l'innovazione,
+                proponendo nuove ricette e sapori in un ambiente accogliente e
+                familiare.
+              </p>
 
-      <p className="oswald text-2xl md:text-2xl text-white leading-relaxed">
-        E per chi cerca alternative, offriamo un <span className="text-custom-brown font-bold">senza glutine</span> 
-        che conquista anche i palati più esigenti!
-      </p>
-    </div>
-
-  </div>
-</section>
-
-
-
-
-
+              <p className="oswald text-2xl md:text-2xl text-white leading-relaxed">
+                E per chi cerca alternative, offriamo un{" "}
+                <span className="text-custom-brown font-bold">
+                  senza glutine
+                </span>
+                che conquista anche i palati più esigenti!
+              </p>
+            </div>
+          </div>
+        </section>
 
         {/* Servizi Section */}
         <h2 className="oswald text-center mt-7 text-white text-5xl md:text-8xl drop-shadow-lg">
           Cosa vi offriamo
         </h2>
-        <div className="flex flex-col md:flex-row h-1/2 items-center justify-center w-auto gap-8 md:p-12 m-10"
-        
-         >
-          
-
-          <div
-            className="flex flex-col items-center border-8 m-3 border-white bg-custom-brown shadow-lg rounded-2xl p-8 text-center h-full max-w-md transition-transform transform hover:scale-105"
-          
-          >
-            <GiFullPizza className="text-6xl h-auto text-blue-500 mb-4" />
-            <h2 className="oswald text-4xl md:text-6xl text-white mb-4
-            " data-aos="flip-left" >
+        <div className="flex flex-col md:flex-row h-1/2 justify-center w-auto gap-8 md:p-12 m-10">
+          <div className="flex flex-col flex-1 items-center border-8 m-3 border-white bg-custom-brown shadow-lg rounded-2xl p-8 text-center max-w-md transition-transform transform hover:scale-105">
+            <GiFullPizza className="text-6xl h-auto text-custom-brown1 mb-4" />
+            <h2
+              className="oswald text-4xl md:text-6xl text-white mb-4
+            "
+              data-aos="flip-left"
+            >
               Il Miglior Senza Glutine
             </h2>
-            <p className="oswald text-2xl mt-5 text-white"
-            data-aos="flip-left">
+            <p className="oswald text-2xl mt-5 text-white" data-aos="flip-left">
               Il nostro senza glutine non è una semplice alternativa, ma
               un'esperienza di gusto autentica.
             </p>
           </div>
 
-          <div
-            className="flex flex-col items-center border-8 m-3 border-white bg-custom-brown shadow-lg rounded-2xl p-8 text-center max-w-md h-full transition-transform transform hover:scale-105"
-             >
-          
-            <FaPizzaSlice className="text-6xl h-auto text-blue-500 mb-4" />
-            <h2 className="oswald text-4xl md:text-6xl text-white mb-4"
-            data-aos="flip-down">
+          <div className="flex flex-col flex-1 items-center border-8 m-3 border-white bg-custom-brown shadow-lg rounded-2xl p-8 text-center max-w-md transition-transform transform hover:scale-105">
+            <FaPizzaSlice className="text-6xl h-auto text-custom-brown1 mb-4" />
+            <h2
+              className="oswald text-4xl md:text-6xl text-white mb-4"
+              data-aos="flip-down"
+            >
               Pizze Artigianali
             </h2>
-            <p className="oswald text-2xl mt-5 text-white"
-            data-aos="fade-up">
+            <p className="oswald text-2xl mt-5 text-white" data-aos="fade-up">
               Pizze preparate con ingredienti freschi e la passione che ci
               contraddistingue.
             </p>
           </div>
 
-          <div
-            className="flex flex-col items-center border-8 m-3 border-white bg-custom-brown shadow-lg rounded-2xl p-8  text-center h-auto max-w-md transition-transform transform hover:scale-105"
-        
-          >
-            <GiFurnace className="text-6xl text-blue-500 mb-4" />
-            <h2 className="oswald text-4xl md:text-6xl text-white mb-4"
-            data-aos="flip-right">
+          <div className="flex flex-col flex-1 items-center border-8 m-3 border-white bg-custom-brown shadow-lg rounded-2xl p-8 text-center max-w-md transition-transform transform hover:scale-105">
+            <GiFurnace className="text-6xl text-custom-brown1 mb-4" />
+            <h2
+              className="oswald text-4xl md:text-6xl text-white mb-4"
+              data-aos="flip-right"
+            >
               Forni Separati
             </h2>
-            <p className="oswald text-2xl mt-5 text-white"
-            data-aos="flip-right">
+            <p
+              className="oswald text-2xl mt-5 text-white"
+              data-aos="flip-right"
+            >
               Da Punto ICS garantiamo la massima sicurezza per i nostri clienti
               celiaci, grazie ai due forni separati dedicati agli impasti senza
               glutine.
@@ -196,8 +192,10 @@ function PuntoicsDelivery() {
 
         {/* Storia  Section */}
         <div className="bg-custom-brown flex flex-col md:flex-row items-center justify-center gap-5 p-3">
-          <div className="flex flex-col m-6 w-full md:w-1/3 items-start"
-          data-aos="fade-left">
+          <div
+            className="flex flex-col m-6 w-full md:w-1/3 items-start"
+            data-aos="fade-left"
+          >
             <h2 className="oswald text-4xl md:text-6xl text-white mb-4 drop-shadow-lg">
               Il Gusto che Racconta una Storia
             </h2>
@@ -244,8 +242,10 @@ function PuntoicsDelivery() {
               className="rounded-2xl scale-90 md:scale-100 h-full max-w-md m-4 shadow-xl transition-transform transform hover:scale-105"
             />
           </div>
-          <div className="flex flex-col m-6 w-full mr-20 md:w-1/2 items-start"
-           data-aos="fade-right">
+          <div
+            className="flex flex-col m-6 w-full mr-20 md:w-1/2 items-start"
+            data-aos="fade-right"
+          >
             <h2 className="oswald text-4xl md:text-6xl text-white mb-6 text-center md:text-left font-bold drop-shadow-lg">
               Antipasti da Gustare: Un Inizio Croccante e Irresistibile
             </h2>
@@ -287,10 +287,13 @@ function PuntoicsDelivery() {
         {/* Impasti Section */}
         <div className="bg-transparent flex flex-col md:flex-row items-center justify-center gap-10 p-8">
           <div className="flex w-full flex-col md:w-full mx-10 items-center text-center md:text-left">
-            <FaRegArrowAltCircleDown className="oswald text-5xl md:text-8xl animate-bounce text-custom-brown mb-8 font-bold drop-shadow-lg" onClick={() => {
-    const section = document.getElementById("menu");
-    section?.scrollIntoView({ behavior: "smooth" });
-  }} />
+            <FaRegArrowAltCircleDown
+              className="oswald text-5xl md:text-8xl animate-bounce text-custom-brown mb-8 font-bold drop-shadow-lg"
+              onClick={() => {
+                const section = document.getElementById("menu");
+                section?.scrollIntoView({ behavior: "smooth" });
+              }}
+            />
 
             <div className="flex flex-col md:flex-row m-6 p-3 items-center justify-around gap-12">
               <div className="relative group w-full md:w-1/3">
@@ -317,8 +320,6 @@ function PuntoicsDelivery() {
             </div>
           </div>
         </div>
-
-       
 
         {/* Galleria Scorrimento */}
         {/* <section className="py-20 bg-custom-brown1 text-center">
@@ -353,21 +354,21 @@ function PuntoicsDelivery() {
 
         {/* sezione atmosfera */}
         <section className="py-20 bg-transparent flex flex-col md:flex-row items-center justify-center gap-10 p-8">
-          <div className="flex w-full md:w-1/3 items-center justify-center"
-          
-           >
+          <div className="flex w-full md:w-1/3 items-center justify-center">
             <img
               src="atmosfera.jpg"
               alt="Atmosfera Locale"
               className="rounded-2xl scale-125  h-full max-w-md m-4 shadow-xl transition-transform transform "
             />
           </div>
-          <div className="flex flex-col m-6 w-full mr-20 md:w-1/2 " data-aos="flip-right"
+          <div
+            className="flex flex-col  w-full mr-18 ml-10 md:w-1/2 "
+            data-aos="flip-right"
           >
-            <h2 className="oswald text-4xl md:text-6xl text-white mb-6 text-center md:text-left font-bold drop-shadow-lg">
+            <h2 className="oswald text-4xl md:text-6xl m-5 text-white mb-6 text-center md:text-left font-bold drop-shadow-lg">
               Un'Atmosfera Unica
             </h2>
-            <p className="oswald text-2xl mt-5 text-white leading-relaxed">
+            <p className="oswald text-2xl mt-5  m-5 text-white leading-relaxed">
               Vieni a scoprire l'atmosfera calda e accogliente di{" "}
               <span className="text-custom-brown font-semibold">Punto ICS</span>
               . Il nostro locale è pensato per farti sentire a casa, con un
@@ -387,30 +388,38 @@ function PuntoicsDelivery() {
         </section>
 
         {/* sezione prenota */}
-        <section className="py-20 px-6 bg-custom-brown text-center relative overflow-hidden">
-          <div className="absolute inset-0 bg-custom-brown1 opacity-20"> </div>
-          <h2
-            className="oswald text-4xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg"
-            data-aos="fade-up"
+        <Parallax
+          strength={300}
+          bgImage={"/pizzapara.jpg"}
+          lazy={false}
+          bgClassName="object-cover !h-full"
+          className="flex items-center justify-center text-center h-[60vh] sm:h-[85vh]"
+        >
+          <motion.h2
+            className=" oswald text-4xl md:text-6xl font-bold text-center text-white mb-6 drop-shadow-lg"
+            initial={{ opacity: 0, y: -300, scale: 0.5 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.3 }}
           >
             Prova le Nostre Pizze Oggi Stesso!
-          </h2>
-          <p
-            className="oswald text-xl md:text-2xl text-white"
-            data-aos="fade-up"
-            data-aos-delay="200"
+          </motion.h2>
+          <motion.p
+            className="oswald text-xl md:text-2xl text-white text-center"
+            initial={{ opacity: 0, y: -300, scale: 0.5 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.3 }}
           >
             Vieni a trovarci e scopri un nuovo modo di gustare la pizza.
-          </p>
-          <a href="tel:+39123456789">
-        <button
-          type="button"
-          className="oswald p-4 text-2xl rounded-full bg-gray-50 opacity-80 mt-10  text-black hover:bg-custom-brown1 transition-all duration-300 mr-4"
-        >
-          CHIAMACI
-        </button>
-      </a>
-        </section>
+          </motion.p>
+          <motion.a href="tel:+39123456789">
+            <motion.button
+              type="button"
+              className="oswald p-4 text-2xl rounded-full  bg-gray-50 opacity-80 mt-10  text-black hover:bg-custom-brown1 transition-all duration-300 mr-4"
+            >
+              CHIAMACI
+            </motion.button>
+          </motion.a>
+        </Parallax>
 
         <section id="menu" className="py-20 bg-custom-brown1 text-center">
           <h2
@@ -419,26 +428,22 @@ function PuntoicsDelivery() {
           >
             Esplora il Nostro Menu
           </h2>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-8 px-6"
-           >
+          <div className="flex flex-col md:flex-row items-center justify-center gap-8 px-6">
             {/* Categoria 1: Pizze Classiche */}
-            <div
-              className="flex flex-col items-center bg-custom-brown rounded-2xl p-6 shadow-lg max-w-sm transition-transform transform "
-             
-            >
+            <div className="flex flex-col items-center bg-custom-brown rounded-2xl p-6 shadow-lg max-w-sm transition-transform transform ">
               <img
                 src="rot3-.png"
                 alt="Pizze Classiche"
                 className="w-full h-full rounded-xl object-cover mb-4"
                 data-aos="flip-left"
               />
-              <h3 className="oswald text-4xl text-white mb-2"
-               data-aos="flip-left">
+              <h3
+                className="oswald text-4xl text-white mb-2"
+                data-aos="flip-left"
+              >
                 Pizze Classiche
               </h3>
-              <p className="oswald text-xl text-white"
-               data-aos="flip-left">
-                
+              <p className="oswald text-xl text-white" data-aos="flip-left">
                 Le nostre pizze classiche, preparate con ingredienti freschi e
                 impasti tradizionali.
               </p>
@@ -455,10 +460,13 @@ function PuntoicsDelivery() {
                 className="w-full h-full rounded-xl object-cover mb-4"
                 data-aos="fade-down"
               />
-              <h3 className="oswald text-4xl text-white mb-2"
-              data-aos="fade-down" >Senza Glutine</h3>
-              <p className="oswald text-xl text-white"
-              data-aos="fade-down">
+              <h3
+                className="oswald text-4xl text-white mb-2"
+                data-aos="fade-down"
+              >
+                Senza Glutine
+              </h3>
+              <p className="oswald text-xl text-white" data-aos="fade-down">
                 Un'esperienza di gusto autentica, sicura e deliziosa per tutti i
                 palati.
               </p>
@@ -475,11 +483,18 @@ function PuntoicsDelivery() {
                 className="w-full h-full rounded-xl object-cover mb-4"
                 data-aos="flip-right"
               />
-              <h3 className="oswald text-4xl text-white mb-2"
-              data-aos="flip-right"> Impasto Kamut</h3>
-              <p className="oswald text-xl text-white"
-              data-aos="flip-left"
-              data-aos-delay="400">
+              <h3
+                className="oswald text-4xl text-white mb-2"
+                data-aos="flip-right"
+              >
+                {" "}
+                Impasto Kamut
+              </h3>
+              <p
+                className="oswald text-xl text-white"
+                data-aos="flip-left"
+                data-aos-delay="400"
+              >
                 Fritture croccanti e verdure fresche per iniziare il tuo pasto
                 nel modo migliore.
               </p>
@@ -560,18 +575,16 @@ function PuntoicsDelivery() {
           </div>
         </section>
 
-
-         {/* Recensioni dei Clienti */}
-         <section className="py-20 bg-custom-brown text-center">
-<h2 className="oswald text-5xl md:text-7xl font-bold  text-white  drop-shadow-lg">
-        Le Voci dei Nostri Ospiti
-      </h2>
-      <div
-        className="elfsight-app-184614d2-8dd3-46ea-9b47-a8e2a5fef0f5   mt-14 text-white mx-auto  oswald text-2xl md:text-3x leading-relaxed" 
-        data-elfsight-app-lazy
-      
-      ></div>
-    </section>
+        {/* Recensioni dei Clienti */}
+        <section className="py-20 bg-custom-brown text-center">
+          <h2 className="oswald text-5xl md:text-7xl font-bold  text-white  drop-shadow-lg">
+            Le Voci dei Nostri Ospiti
+          </h2>
+          <div
+            className="elfsight-app-184614d2-8dd3-46ea-9b47-a8e2a5fef0f5   mt-14 text-white mx-auto  oswald text-2xl md:text-3x leading-relaxed"
+            data-elfsight-app-lazy
+          ></div>
+        </section>
 
         <section className="py-20 bg-custom-brown1 flex flex-col md:flex-row items-center justify-center gap-5 p-5">
           <div className="flex flex-col m-6 w-full md:w-1/2 items-start">
@@ -592,7 +605,7 @@ function PuntoicsDelivery() {
               <br />
               <span className="text-custom-brown font-semibold">Orari:</span>
               <br />
-              martedì - venerdì:  18:30 - 23:00
+              martedì - venerdì: 18:30 - 23:00
               <br />
               Sabato e Domenica: 18:30 - 23:30
               <br />
@@ -606,15 +619,13 @@ function PuntoicsDelivery() {
               Indirizzo: Via Canfora, 78, 95128 Catania CT
             </p>
             <a href="tel:+39123456789">
-            <button
-              className="mt-8 px-6 py-3 bg-custom-brown text-white text-xl oswald rounded-full  transition-all duration-300"
-             
-              data-aos="fade-right"
-              data-aos-delay="400"
-            >
-              Contattaci
-              
-            </button>
+              <button
+                className="mt-8 px-6 py-3 bg-custom-brown text-white text-xl oswald rounded-full  transition-all duration-300"
+                data-aos="fade-right"
+                data-aos-delay="400"
+              >
+                Contattaci
+              </button>
             </a>
           </div>
           <div className="flex flex-col m-5 ">
