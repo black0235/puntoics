@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useNavigate, useLocation, NavLink } from "react-router-dom";
 import logo from "/public/logo.png";
 
-
 export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -79,11 +78,6 @@ export default function Navbar() {
           NICOLOSI
         </button>
 
-       
-
-       
-
-        
         <NavLink
           to="/puntoics-delivery"
           className={({ isActive }) =>
@@ -103,9 +97,8 @@ export default function Navbar() {
             }`
           }
         >
-          LIQUOREMENTE
+          MENÙ
         </NavLink>
-
       </nav>
 
       {/* Bottone CONTATTACI */}

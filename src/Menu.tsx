@@ -1,16 +1,5 @@
-export default function Menu() {
+import Menu from "./components/menu";
 
-
-
-    
-
-
-
-
-
-
-
-
-
-
+export default function Page() {
+  return <Menu />;
 }
