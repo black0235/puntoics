@@ -17,3 +17,7 @@ a {
 a:hover {
 	color: #592932;
 }
+
+.box {
+  -webkit-box-reflect: below 0.5vmin linear-gradient(transparent 0 50%, white 100%);
+}

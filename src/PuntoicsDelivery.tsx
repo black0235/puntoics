@@ -1,15 +1,26 @@
-"use client";
+"use client"
 
-import { useState, useEffect } from "react";
-import { FaPizzaSlice, FaRegArrowAltCircleDown } from "react-icons/fa";
-import { GiFullPizza, GiFurnace } from "react-icons/gi";
-import { useNavigate } from "react-router-dom";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Menu from "./components/menu";
+import { useState, useEffect, useCallback } from "react"
+import { useNavigate } from "react-router-dom"
+import "slick-carousel/slick/slick.css"
+import "slick-carousel/slick/slick-theme.css"
+
+import HeroSection from "./components/hero-section"
+import StorySection from "./components/story-section"
+import ServicesSection from "./components/services-section"
+import AntipastiSection from "./components/antipasti-section"
+import ImpastiSection from "./components/impasti-section"
+import AtmosferaSection from "./components/atmosfera-section"
+import CTASection from "./components/cta-section"
+import MenuSection from "./components/menu-section"
+import IngredientiSection from "./components/ingredienti-section"
+import ReviewsSection from "./components/reviews-section"
+import ContactSection from "./components/contact-section"
+import ScrollAlbumCarousel from "./components/pizzaCard"
 
 function PuntoicsDelivery() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0)
+  const [gsapLoaded, setGsapLoaded] = useState<{ gsap: any; ScrollTrigger: any } | null>(null)
 
   const sliderSettings = {
     dots: true,
@@ -20,165 +31,195 @@ function PuntoicsDelivery() {
     autoplay: true,
     autoplaySpeed: 3000,
     arrows: true,
-  };
+  }
+
+  const handleGSAPLoad = useCallback((gsap: any, ScrollTrigger: any) => {
+    setGsapLoaded({ gsap, ScrollTrigger })
+  }, [])
 
   useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://static.elfsight.com/platform/platform.js";
-    script.async = true;
-    document.body.appendChild(script);
-  }, []);
+    const script = document.createElement("script")
+    script.src = "https://static.elfsight.com/platform/platform.js"
+    script.async = true
+    document.body.appendChild(script)
+  }, [])
 
-  const navigate = useNavigate();
+  // GSAP Animations
+  useEffect(() => {
+    const loadGSAP = async () => {
+      const { gsap } = await import("gsap")
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger")
+
+      gsap.registerPlugin(ScrollTrigger)
+
+      // Hero Animation
+      gsap.fromTo(
+        document.querySelector(".hero-title"),
+        { opacity: 0, y: 100 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.5,
+          ease: "power3.out",
+          delay: 0.5,
+        },
+      )
+
+      gsap.fromTo(
+        document.querySelector(".hero-subtitle"),
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.2,
+          ease: "power3.out",
+          delay: 1,
+        },
+      )
+
+      gsap.fromTo(
+        document.querySelector(".hero-button"),
+        { opacity: 0, scale: 0.8 },
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 0.8,
+          ease: "back.out(1.7)",
+          delay: 1.5,
+        },
+      )
+
+      // Story Section Animation
+      gsap.fromTo(
+        document.querySelector(".story-image"),
+        { opacity: 0, x: -100, rotation: -10 },
+        {
+          opacity: 1,
+          x: 0,
+          rotation: 0,
+          duration: 1.5,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: document.querySelector(".story-section"),
+            start: "top 70%",
+            toggleActions: "play none none reverse",
+          },
+        },
+      )
+
+      gsap.fromTo(
+        document.querySelector(".story-text"),
+        { opacity: 0, x: 100 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 1.2,
+          ease: "power3.out",
+          delay: 0.3,
+          scrollTrigger: {
+            trigger: document.querySelector(".story-section"),
+            start: "top 70%",
+            toggleActions: "play none none reverse",
+          },
+        },
+      )
+
+      // Antipasti Section Animation
+      gsap.fromTo(
+        document.querySelector(".antipasti-image"),
+        { opacity: 0, scale: 0.8, rotation: 10 },
+        {
+          opacity: 1,
+          scale: 1,
+          rotation: 0,
+          duration: 1.5,
+          ease: "back.out(1.7)",
+          scrollTrigger: {
+            trigger: document.querySelector(".antipasti-section"),
+            start: "top 70%",
+            toggleActions: "play none none reverse",
+          },
+        },
+      )
+
+      // Impasti Images Animation
+      gsap.fromTo(
+        document.querySelectorAll(".impasto-image"),
+        { opacity: 0, y: 100, scale: 0.5 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 1.2,
+          ease: "back.out(1.7)",
+          stagger: 0.2,
+          scrollTrigger: {
+            trigger: document.querySelector(".impasti-section"),
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+        },
+      )
+
+      // Atmosfera Section Animation
+      gsap.fromTo(
+        document.querySelector(".atmosfera-image"),
+        { opacity: 0, scale: 1.3, filter: "blur(10px)" },
+        {
+          opacity: 1,
+          scale: 1,
+          filter: "blur(0px)",
+          duration: 2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: document.querySelector(".atmosfera-section"),
+            start: "top 70%",
+            toggleActions: "play none none reverse",
+          },
+        },
+      )
+
+      // Floating Animation per le icone
+      // Implementazione delle animazioni per le icone
+    }
+
+    loadGSAP()
+  }, [])
+
+  const navigate = useNavigate()
 
   return (
     <>
-      {/* Hero Section */}
-      <div className="bg-custom-brown1 relative">
-        <div className="flex bg-video-container h-screen relative overflow-hidden">
-          <video
-            autoPlay
-            loop
-            muted
-            className="absolute top-0 left-0 w-full h-full object-cover opacity-80"
-          >
-            <source src="homepage.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-black opacity-40"></div>
-          <div className="flex flex-col-reverse lg:flex-row sm:p-0 lg:p-6 m-5 md:m-28 gap-5 bg-transparent z-10">
-            <div className="text-left mt-16 w-full lg:w-1/2">
-              <h1 className="oswald text-4xl md:text-7xl text-white mb-6 drop-shadow-lg">
-                Da noi la qualità è di casa, il gusto è una certezza!
-              </h1>
-              <p className="oswald text-2xl md:text-3xl mt-10 text-white leading-relaxed">
-                Abbiamo soddisfatto{" "}
-                <span className="font-semibold ">oltre 1000+ clienti...</span>{" "}
-                con le nostre pizze, ora è il tuo turno!
-              </p>
-              <button
-                className="mt-8 px-6 py-3 bg-custom-brown text-white text-xl oswald rounded-full hover:bg-custom-brown1 transition-all duration-300"
-                onClick={() => navigate("/menu")}
-              >
-                Scopri il Menu
-              </button>
-            </div>
-          </div>
-        </div>
+      <div className="bg-custom-brown1">
+        <HeroSection onGSAPLoad={handleGSAPLoad} />
 
-        <section className="bg-transparent py-16 px-6 md:py-24 md:px-12">
-          <div className="flex flex-col md:flex-row items-center justify-center gap-12 max-w-7xl mx-auto">
-            {/* Immagine */}
-            <div className="w-1/3 h-auto flex justify-center">
-              <img
-                src="pizzeria1.png"
-                alt="Pizzeria"
-                className="w-full max-w-lg rounded-3xl object-cover shadow-2xl hover:scale-105 transition-transform duration-500"
-              />
-            </div>
+   
 
-            {/* Testo */}
-            <div className="w-full md:w-1/2 flex flex-col justify-center items-center md:items-start text-center md:text-left gap-6">
-              <h2 className="oswald text-4xl md:text-5xl text-white font-bold leading-tight">
-                Passione per la Pizza
-              </h2>
+        <StorySection gsap={gsapLoaded?.gsap} ScrollTrigger={gsapLoaded?.ScrollTrigger} />
 
-              <p className="oswald text-2xl md:text-2xl text-white leading-relaxed">
-                Da{" "}
-                <span className="text-custom-brown font-bold">Punto ICS</span>,
-                ogni pizza è un'opera d'arte. Usiamo solo ingredienti freschi e
-                selezionati per offrirti un gusto autentico e inconfondibile.
-              </p>
+        <ServicesSection gsap={gsapLoaded?.gsap} ScrollTrigger={gsapLoaded?.ScrollTrigger} />
 
-              <h3 className="oswald text-3xl md:text-4xl text-custom-brown font-bold mt-4">
-                Il nostro punto di forza?
-              </h3>
+             {/* <PizzaCarousel/> */} <ScrollAlbumCarousel/>
 
-              <p className="oswald text-2xl md:text-2xl text-white leading-relaxed">
-                Uniamo la tradizione della pizza italiana con l'innovazione,
-                proponendo nuove ricette e sapori in un ambiente accogliente e
-                familiare.
-              </p>
-
-              <p className="oswald text-2xl md:text-2xl text-white leading-relaxed">
-                E per chi cerca alternative, offriamo un{" "}
-                <span className="text-custom-brown font-bold">
-                  senza glutine
-                </span>
-                che conquista anche i palati più esigenti!
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Servizi Section */}
-        <h2 className="oswald text-center mt-7 text-white text-5xl md:text-8xl drop-shadow-lg">
-          Cosa vi offriamo
-        </h2>
-        <div className="flex flex-col md:flex-row h-1/2 justify-center w-auto gap-8 md:p-12 m-10">
-          <div className="flex flex-col flex-1 items-center border-8 m-3 border-white bg-custom-brown shadow-lg rounded-2xl p-8 text-center max-w-md transition-transform transform hover:scale-105">
-            <GiFullPizza className="text-6xl h-auto text-custom-brown1 mb-4" />
-            <h2 className="oswald text-4xl md:text-6xl text-white mb-4">
-              Il Miglior Senza Glutine
-            </h2>
-            <p className="oswald text-2xl mt-5 text-white">
-              Il nostro senza glutine non è una semplice alternativa, ma
-              un'esperienza di gusto autentica.
-            </p>
-          </div>
-
-          <div className="flex flex-col flex-1 items-center border-8 m-3 border-white bg-custom-brown shadow-lg rounded-2xl p-8 text-center max-w-md transition-transform transform hover:scale-105">
-            <FaPizzaSlice className="text-6xl h-auto text-custom-brown1 mb-4" />
-            <h2 className="oswald text-4xl md:text-6xl text-white mb-4">
-              Pizze Artigianali
-            </h2>
-            <p className="oswald text-2xl mt-5 text-white">
-              Pizze preparate con ingredienti freschi e la passione che ci
-              contraddistingue.
-            </p>
-          </div>
-
-          <div className="flex flex-col flex-1 items-center border-8 m-3 border-white bg-custom-brown shadow-lg rounded-2xl p-8 text-center max-w-md transition-transform transform hover:scale-105">
-            <GiFurnace className="text-6xl text-custom-brown1 mb-4" />
-            <h2 className="oswald text-4xl md:text-6xl text-white mb-4">
-              Forni Separati
-            </h2>
-            <p className="oswald text-2xl mt-5 text-white">
-              Da Punto ICS garantiamo la massima sicurezza per i nostri clienti
-              celiaci, grazie ai due forni separati dedicati agli impasti senza
-              glutine.
-            </p>
-          </div>
-        </div>
-
-        {/* Storia  Section */}
-        <div className="bg-custom-brown flex flex-col md:flex-row items-center justify-center gap-5 p-3">
+        {/* Storia Section */}
+        <div className="bg-custom-brown story-section flex flex-col md:flex-row items-center justify-center gap-5 p-3">
           <div className="flex flex-col m-6 w-full md:w-1/3 items-start">
             <h2 className="oswald text-4xl md:text-6xl text-white mb-4 drop-shadow-lg">
               Il Gusto che Racconta una Storia
             </h2>
             <p className="oswald text-2xl mt-5 text-white">
               Ogni pizza racconta una storia fatta di
-              <span className="text-2xl text-custom-brown1">
-                {" "}
-                passione e ingredienti selezionati.
-              </span>
+              <span className="text-2xl text-custom-brown1"> passione e ingredienti selezionati.</span>
               <br />
               <br />
               Prepariamo{" "}
-              <span className="text-2xl text-custom-brown1">
-                {" "}
-                impasti artigianali con lievitazione naturale
-              </span>{" "}
-              e aggiungiamo solo i migliori prodotti freschi, per offrirti
-              un'esperienza di{" "}
+              <span className="text-2xl text-custom-brown1"> impasti artigianali con lievitazione naturale</span> e
+              aggiungiamo solo i migliori prodotti freschi, per offrirti un'esperienza di{" "}
               <span className="text-custom-brown1"> gusto senza pari.</span>
               <br />
               <br />
-              <span className="text-custom-brown1">
-                {" "}
-                Dalla tradizione alla modernità,
-              </span>{" "}
-              ogni morso è un viaggio che ti farà innamorare.
+              <span className="text-custom-brown1"> Dalla tradizione alla modernità,</span> ogni morso è un viaggio che
+              ti farà innamorare.
             </p>
           </div>
           <div className="flex w-full md:w-1/2  items-center justify-center">
@@ -190,317 +231,24 @@ function PuntoicsDelivery() {
           </div>
         </div>
 
-        {/* Antipasti Section */}
-        <div className="bg-transparent flex flex-col md:flex-row items-center justify-center gap-4 p-6">
-          <div className="flex w-full md:w-1/3 items-center justify-center md:mt-10">
-            <img
-              src="patatine.jpg"
-              alt="Antipasti"
-              className="rounded-2xl scale-90 md:scale-100 h-full max-w-md m-4 shadow-xl transition-transform transform hover:scale-105"
-            />
-          </div>
-          <div className="flex flex-col m-6 w-full mr-20 md:w-1/2 items-start">
-            <h2 className="oswald text-4xl md:text-6xl text-white mb-6 text-center md:text-left font-bold drop-shadow-lg">
-              Antipasti da Gustare: Un Inizio Croccante e Irresistibile
-            </h2>
-            <p className="oswald text-2xl  text-white leading-relaxed">
-              I nostri antipasti sono il{" "}
-              <span className="text-custom-brown font-semibold">
-                perfetto inizio
-              </span>{" "}
-              per ogni pasto, pensati per{" "}
-              <span className="text-custom-brown font-semibold">
-                stuzzicare il palato
-              </span>{" "}
-              e prepararti a un'esperienza culinaria
-              <span className="text-custom-brown font-semibold"> unica</span>.
-              Dalle
-              <span className="text-2xl text-custom-brown font-semibold">
-                fritture croccanti
-              </span>{" "}
-              alle
-              <span className="text-2xl text-custom-brown font-semibold">
-                verdure fresche
-              </span>{" "}
-              con condimenti ricercati, ogni piatto è preparato con ingredienti
-              di alta qualità e passione. Assapora il mix di sapori che esaltano
-              ogni ingrediente, per un inizio{" "}
-              <span className="text-custom-brown font-semibold">
-                indimenticabile
-              </span>{" "}
-              del tuo pranzo o cena.
-              <br />
-              <span className="font-bold text-2xl text-custom-brown">
-                Prova i nostri fritti
-              </span>{" "}
-              che renderanno ogni boccone ancora più speciale.
-            </p>
-          </div>
-        </div>
+        <AntipastiSection gsap={gsapLoaded?.gsap} ScrollTrigger={gsapLoaded?.ScrollTrigger} />
 
-        {/* Impasti Section */}
-        <div className="bg-transparent flex flex-col md:flex-row items-center justify-center gap-10 p-8">
-          <div className="flex w-full flex-col md:w-full mx-10 items-center text-center md:text-left">
-            <FaRegArrowAltCircleDown
-              className="oswald text-5xl md:text-8xl animate-bounce text-custom-brown mb-8 font-bold drop-shadow-lg"
-              onClick={() => {
-                const section = document.getElementById("menu");
-                section?.scrollIntoView({ behavior: "smooth" });
-              }}
-            />
+        <ImpastiSection gsap={gsapLoaded?.gsap} ScrollTrigger={gsapLoaded?.ScrollTrigger} />
 
-            <div className="flex flex-col md:flex-row m-6 p-3 items-center justify-around gap-12">
-              <div className="relative group w-full md:w-1/3">
-                <img
-                  src="sec1.png"
-                  alt="Impasto 1"
-                  className="w-auto scale-75 h-auto border-8 cursor-pointer border-custom-brown rounded-2xl shadow-lg transform transition-transform duration-500 hover:scale-90"
-                />
-              </div>
-              <div className="relative group w-full md:w-1/3">
-                <img
-                  src="sec2.png"
-                  alt="Impasto 2"
-                  className="w-auto scale-75 h-auto border-8 cursor-pointer border-custom-brown rounded-2xl shadow-lg transform transition-transform duration-500 hover:scale-90"
-                />
-              </div>
-              <div className="relative group w-full md:w-1/3">
-                <img
-                  src="sec3.png"
-                  alt="Impasto 3"
-                  className="w-auto scale-75 h-auto border-8 cursor-pointer border-custom-brown rounded-2xl shadow-lg transform transition-transform duration-500 hover:scale-90"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+        <AtmosferaSection gsap={gsapLoaded?.gsap} ScrollTrigger={gsapLoaded?.ScrollTrigger} />
 
-        {/* sezione atmosfera */}
-        <section className="py-20 bg-transparent flex flex-col md:flex-row items-center justify-center gap-10 p-8">
-          <div className="flex w-full md:w-1/3 items-center justify-center">
-            <img
-              src="atmosfera.jpg"
-              alt="Atmosfera Locale"
-              className="rounded-2xl scale-125  h-full max-w-md m-4 shadow-xl transition-transform transform"
-            />
-          </div>
-          <div className="flex flex-col w-full mr-18 ml-10 md:w-1/2">
-            <h2 className="oswald text-4xl md:text-6xl m-5 text-white mb-6 text-center md:text-left font-bold drop-shadow-lg">
-              Un'Atmosfera Unica
-            </h2>
-            <p className="oswald text-2xl mt-5 m-5 text-white leading-relaxed">
-              Vieni a scoprire l'atmosfera calda e accogliente di{" "}
-              <span className="text-custom-brown font-semibold">Punto ICS</span>
-              . Il nostro locale è pensato per farti sentire a casa, con un
-              design moderno e dettagli rustici che celebrano la tradizione
-              della pizza.
-              <br />
-              <br />
-              Perfetto per una cena romantica, un pranzo in famiglia o una
-              serata con gli amici. Ogni momento da noi è speciale, grazie a un
-              ambiente che unisce{" "}
-              <span className="text-custom-brown font-semibold">
-                comfort e stile
-              </span>
-              .
-            </p>
-          </div>
-        </section>
+        <CTASection />
 
-        {/* sezione prenota - Sostituita la sezione parallax */}
-        <section className="py-20 bg-custom-brown text-center relative">
-          <div
-            className="absolute inset-0 bg-black opacity-50 z-0"
-            style={{
-              backgroundImage: "url('/pizzapara.jpg')",
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          ></div>
-          <div className="relative z-10 max-w-4xl mx-auto px-6">
-            <h2 className="oswald text-4xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg">
-              Prova le Nostre Pizze Oggi Stesso!
-            </h2>
-            <p className="oswald text-xl md:text-2xl text-white mb-8">
-              Vieni a trovarci e scopri un nuovo modo di gustare la pizza.
-            </p>
-            <a href="tel:+39095817885">
-              <button
-                type="button"
-                className="oswald px-8 py-4 text-2xl rounded-full bg-custom-brown text-white hover:bg-custom-brown1 transition-all duration-300 shadow-lg"
-              >
-                CHIAMACI ORA
-              </button>
-            </a>
-          </div>
-        </section>
+        <MenuSection gsap={gsapLoaded?.gsap} ScrollTrigger={gsapLoaded?.ScrollTrigger} />
 
-        <section id="menu" className="py-20 bg-custom-brown1 text-center">
-          <h2 className="oswald text-5xl md:text-7xl font-bold text-white mb-12 drop-shadow-lg">
-            Esplora il Nostro Menu
-          </h2>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-8 px-6">
-            {/* Categoria 1: Pizze Classiche */}
-            <div className="flex flex-col items-center bg-custom-brown rounded-2xl p-6 shadow-lg max-w-sm transition-transform transform">
-              <img
-                src="rot3-.png"
-                alt="Pizze Classiche"
-                className="w-full h-full rounded-xl object-cover mb-4"
-              />
-              <h3 className="oswald text-4xl text-white mb-2">
-                Pizze Classiche
-              </h3>
-              <p className="oswald text-xl text-white">
-                Le nostre pizze classiche, preparate con ingredienti freschi e
-                impasti tradizionali.
-              </p>
-            </div>
+        <IngredientiSection gsap={gsapLoaded?.gsap} ScrollTrigger={gsapLoaded?.ScrollTrigger} />
 
-            {/* Categoria 2: Senza Glutine */}
-            <div className="flex flex-col items-center bg-custom-brown rounded-2xl p-6 shadow-lg max-w-sm transition-transform transform">
-              <img
-                src="rot2-.png"
-                alt="Pizze Senza Glutine"
-                className="w-full h-full rounded-xl object-cover mb-4"
-              />
-              <h3 className="oswald text-4xl text-white mb-2">Senza Glutine</h3>
-              <p className="oswald text-xl text-white">
-                Un'esperienza di gusto autentica, sicura e deliziosa per tutti i
-                palati.
-              </p>
-            </div>
+        <ReviewsSection />
 
-            {/* Categoria 3: Antipasti */}
-            <div className="flex flex-col items-center bg-custom-brown rounded-2xl p-6 shadow-lg max-w-sm transition-transform transform">
-              <img
-                src="rot1-.png"
-                alt="img"
-                className="w-full h-full rounded-xl object-cover mb-4"
-              />
-              <h3 className="oswald text-4xl text-white mb-2">Impasto Kamut</h3>
-              <p className="oswald text-xl text-white">
-                Fritture croccanti e verdure fresche per iniziare il tuo pasto
-                nel modo migliore.
-              </p>
-            </div>
-          </div>
-          <button
-            className="mt-14 px-8 py-5 bg-custom-brown text-white scale-110 text-xl oswald rounded-full hover:scale-110 transition-all duration-300"
-            onClick={() => navigate("/menu")}
-          >
-            Scopri il Menu Completo
-          </button>
-        </section>
-
-        <section className="py-20 bg-custom-brown text-center">
-          <h2 className="oswald text-5xl md:text-7xl font-bold text-white mb-12 drop-shadow-lg">
-            Ingredienti di Qualità
-          </h2>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-8 px-6">
-            {/* Ingrediente 1: Farina */}
-            <div className="flex flex-col items-center bg-white rounded-2xl p-6 shadow-lg max-w-sm transition-transform transform hover:scale-105">
-              <img
-                src="farina.png"
-                alt="Farina di Qualità"
-                className="w-32 h-32 rounded-full mb-4 object-cover"
-              />
-              <h3 className="oswald text-2xl text-custom-brown mb-2">
-                Farina Selezionata
-              </h3>
-              <p className="oswald text-lg text-gray-700">
-                Usiamo solo farine di alta qualità per un impasto leggero e
-                digeribile.
-              </p>
-            </div>
-
-            {/* Ingrediente 2: Mozzarella */}
-            <div className="flex flex-col items-center bg-white rounded-2xl p-6 shadow-lg max-w-sm transition-transform transform hover:scale-105">
-              <img
-                src="mozzarella.png"
-                alt="Mozzarella Fresca"
-                className="w-32 h-32 rounded-full mb-4 object-cover"
-              />
-              <h3 className="oswald text-2xl text-custom-brown mb-2">
-                Mozzarella Fresca
-              </h3>
-              <p className="oswald text-lg text-gray-700">
-                Mozzarella di bufala e fior di latte, sempre fresca e filante.
-              </p>
-            </div>
-
-            {/* Ingrediente 3: Pomodoro */}
-            <div className="flex flex-col items-center bg-white rounded-2xl p-6 shadow-lg max-w-sm transition-transform transform hover:scale-105">
-              <img
-                src="pomodoro1.png"
-                alt="Pomodoro Italiano"
-                className="w-32 h-32 rounded-full mb-4 object-cover"
-              />
-              <h3 className="oswald text-2xl text-custom-brown mb-2">
-                Pomodoro Italiano
-              </h3>
-              <p className="oswald text-lg text-gray-700">
-                Pomodori 100% italiani, coltivati con cura per un sapore
-                autentico.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Recensioni dei Clienti */}
-        <section className="py-20 bg-custom-brown text-center">
-          <h2 className="oswald text-5xl md:text-7xl font-bold text-white drop-shadow-lg">
-            Le Voci dei Nostri Ospiti
-          </h2>
-          <div
-            className="elfsight-app-184614d2-8dd3-46ea-9b47-a8e2a5fef0f5 mt-14 mx-24 text-white  oswald text-2xl md:text-3x leading-relaxed"
-            data-elfsight-app-lazy
-          ></div>
-        </section>
-
-        <section className="py-20 bg-custom-brown1 flex flex-col md:flex-row items-center justify-center gap-5 p-5">
-          <div className="flex flex-col m-6 w-full md:w-1/2 items-start">
-            <h2 className="oswald text-4xl md:text-6xl text-white mb-6 text-center md:text-left font-bold drop-shadow-lg">
-              Vieni a Trovarci
-            </h2>
-            <p className="oswald text-2xl mt-5 text-white leading-relaxed">
-              Siamo aperti tutti i giorni per offrirti il meglio della pizza
-              artigianale.
-              <br />
-              <br />
-              <span className="text-custom-brown font-semibold">Orari:</span>
-              <br />
-              martedì - venerdì: 18:30 - 23:00
-              <br />
-              Sabato e Domenica: 18:30 - 23:30
-              <br />
-              <br />
-              <span className="text-custom-brown font-semibold">Contatti:</span>
-              <br />
-              Telefono: +39 095 817 8851
-              <br />
-              Email: info@puntoics.it
-              <br />
-              Indirizzo: Via Canfora, 78, 95128 Catania CT
-            </p>
-            <a href="tel:+39095817885">
-              <button className="mt-8 px-6 py-3 bg-custom-brown text-white text-xl oswald rounded-full transition-all duration-300">
-                Contattaci
-              </button>
-            </a>
-          </div>
-          <div className="flex flex-col m-5">
-            <iframe
-              width="600"
-              height="600"
-              className="rounded-2xl m-2 shadow-xl"
-              loading="lazy"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3164.5632719644304!2d15.085819276069559!3d37.51821737205109!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1313fdebbffecf5f%3A0x8bbf146a7c1bb8ac!2sPuntoICS%20Delivery%20Catania!5e0!3m2!1sit!2sit!4v1743067350173!5m2!1sit!2sit"
-            ></iframe>
-          </div>
-        </section>
+        <ContactSection />
       </div>
     </>
-  );
+  )
 }
 
-export default PuntoicsDelivery;
+export default PuntoicsDelivery
