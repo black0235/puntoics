@@ -4,7 +4,7 @@ type Delight = {
   imgSrc: string;
   imgAlt: string;
   title: string;
-  description: ReactNode; // Così puoi anche inserire <br /> se serve
+  description: ReactNode;
 };
 
 const delights: Delight[] = [
@@ -34,35 +34,38 @@ const delights: Delight[] = [
 
 export default function DelightsSection() {
   return (
-    <section id="delights-section" className="py-20 bg-transparent text-center">
+    <section
+      id="delights-section"
+      className="py-12 md:py-20 bg-transparent text-center px-4 sm:px-6 md:px-12"
+    >
       <h2
-        className="oswald text-5xl md:text-7xl font-bold text-white mb-12 drop-shadow-lg"
+        className="oswald text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-12 drop-shadow-lg"
         data-aos="fade-up"
         data-aos-duration="1000"
       >
         Le Nostre Delizie
       </h2>
 
-      <div className="flex flex-col md:flex-row items-center justify-center gap-8 px-6">
+      <div className="flex flex-col md:flex-row flex-wrap items-center justify-center gap-8">
         {delights.map((delight, index) => (
           <div
             key={index}
-            className="flex flex-col items-center bg-custom-brown rounded-2xl p-6 m-5 shadow-lg max-w-sm transition-transform transform hover:scale-105"
+            className="flex flex-col items-center bg-custom-brown rounded-2xl p-4 md:p-6 shadow-lg max-w-xs sm:max-w-sm md:max-w-sm lg:max-w-md transition-transform transform hover:scale-105"
             data-aos={index === 0 ? "fade-right" : index === 1 ? "fade-up" : "fade-left"}
             data-aos-duration="1000"
-            data-aos-delay={`${index * 200}`}  // Delay per ogni item per una transizione più fluida
+            data-aos-delay={`${index * 200}`}
           >
             <img
               src={delight.imgSrc}
               alt={delight.imgAlt}
-              className="w-full h-96 rounded-xl object-cover mb-4"
-              data-aos="fade-left" // Aggiunta l'animazione zoom all'immagine
+              className="w-full h-64 md:h-72 lg:h-80 rounded-xl object-cover mb-4"
+              data-aos="fade-left"
               data-aos-duration="1000"
             />
-            <h3 className="oswald text-4xl text-white mb-2" data-aos="fade-up" data-aos-duration="1000">
+            <h3 className="oswald text-3xl md:text-4xl lg:text-5xl text-white mb-2 font-bold">
               {delight.title}
             </h3>
-            <p className="oswald text-xl text-white" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+            <p className="oswald text-xl md:text-2xl text-white leading-relaxed">
               {delight.description}
             </p>
           </div>
