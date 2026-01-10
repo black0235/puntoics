@@ -9,16 +9,18 @@ type Delight = {
 
 const delights: Delight[] = [
   {
-    imgSrc: "dish1.jpg",
-    imgAlt: "Pizza Speciale",
-    title: "Pizza d’Autore",
-    description: "Un’esplosione di sapori con ingredienti freschi e un impasto unico.",
-  },
-  {
     imgSrc: "dish2.jpg",
     imgAlt: "Hamburger Gourmet",
     title: "Hamburger Gourmet",
-    description: "Carne succosa e condimenti ricercati per un gusto indimenticabile.",
+    description:
+      "Carne succosa e condimenti ricercati per un gusto indimenticabile.",
+  },
+  {
+    imgSrc: "dish1.jpg",
+    imgAlt: "Pizza Speciale",
+    title: "Pizza d’Autore",
+    description:
+      "Un’esplosione di sapori con ingredienti freschi e un impasto unico.",
   },
   {
     imgSrc: "dish3.jpg",
@@ -50,8 +52,10 @@ export default function DelightsSection() {
         {delights.map((delight, index) => (
           <div
             key={index}
-            className="flex flex-col items-center bg-custom-brown rounded-2xl p-4 md:p-6 shadow-lg max-w-xs sm:max-w-sm md:max-w-sm lg:max-w-md transition-transform transform hover:scale-105"
-            data-aos={index === 0 ? "fade-right" : index === 1 ? "fade-up" : "fade-left"}
+            className="flex flex-col items-center bg-custom-brown rounded-2xl p-4 md:p-6 shadow-lg max-w-xs sm:max-w-sm md:max-w-sm  transition-transform transform hover:scale-105"
+            data-aos={
+              index === 0 ? "fade-right" : index === 1 ? "fade-up" : "fade-left"
+            }
             data-aos-duration="1000"
             data-aos-delay={`${index * 200}`}
           >

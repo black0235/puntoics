@@ -1,17 +1,20 @@
-"use client"
+"use client";
 
-import { useRef, useEffect } from "react"
+import { useRef, useEffect } from "react";
 
 interface AtmosferaSectionProps {
-  gsap?: any
-  ScrollTrigger?: any
+  gsap?: any;
+  ScrollTrigger?: any;
 }
 
-export default function AtmosferaSection({ gsap, ScrollTrigger }: AtmosferaSectionProps) {
-  const atmosferaRef = useRef<HTMLDivElement>(null)
+export default function AtmosferaSection({
+  gsap,
+  ScrollTrigger,
+}: AtmosferaSectionProps) {
+  const atmosferaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!gsap || !ScrollTrigger) return
+    if (!gsap || !ScrollTrigger) return;
 
     // Animazione GSAP
     gsap.fromTo(
@@ -28,9 +31,9 @@ export default function AtmosferaSection({ gsap, ScrollTrigger }: AtmosferaSecti
           start: "top 70%",
           toggleActions: "play none none reverse",
         },
-      }
-    )
-  }, [gsap, ScrollTrigger])
+      },
+    );
+  }, [gsap, ScrollTrigger]);
 
   return (
     <section
@@ -48,20 +51,25 @@ export default function AtmosferaSection({ gsap, ScrollTrigger }: AtmosferaSecti
 
       {/* Testo */}
       <div className="flex flex-col w-full md:w-1/2 mt-6 md:mt-0 text-center md:text-left">
-        <h2 className="oswald text-xl md:text-2xl text-white mb-4 md:mb-6 font-bold drop-shadow-lg">
+        <h2 className="oswald text-3xl md:text-5xl lg:text-6xl text-white mb-4 md:mb-6 font-bold drop-shadow-lg">
           Un'Atmosfera Unica
         </h2>
         <p className="oswald text-xl md:text-2xl text-white leading-relaxed">
           Vieni a scoprire l'atmosfera calda e accogliente di{" "}
-          <span className="text-custom-brown font-semibold">Punto ICS</span>. Il nostro locale è pensato per farti
-          sentire a casa, con un design moderno e dettagli rustici che celebrano la tradizione della pizza.
+          <span className="text-custom-brown font-semibold">Punto ICS</span>. Il
+          nostro locale è pensato per farti sentire a casa, con un design
+          moderno e dettagli rustici che celebrano la tradizione della pizza.
           <br />
           <br />
-          Perfetto per una cena romantica, un pranzo in famiglia o una serata con gli amici. Ogni momento da noi è
-          speciale, grazie a un ambiente che unisce{" "}
-          <span className="text-custom-brown font-semibold">comfort e stile</span>.
+          Perfetto per una cena romantica, un pranzo in famiglia o una serata
+          con gli amici. Ogni momento da noi è speciale, grazie a un ambiente
+          che unisce{" "}
+          <span className="text-custom-brown font-semibold">
+            comfort e stile
+          </span>
+          .
         </p>
       </div>
     </section>
-  )
+  );
 }

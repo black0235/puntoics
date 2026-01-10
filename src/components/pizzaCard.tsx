@@ -1,246 +1,213 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 
-import { useState, useEffect, useRef, useCallback } from "react"
-import { ArrowUpDown } from "lucide-react"
-
-const COVERS =[
+const COVERS = [
   "rot1-.png",
-"rot2-.png",
- "rot3-.png",
+  "rot2-.png",
+  "rot3-.png",
   "rot1-.png",
-"rot2-.png",
-"rot3-.png",
-"rot1-.png",
-"rot2-.png",
-"rot3-.png",
-"rot1-.png",
-]
+  "rot2-.png",
+  "rot3-.png",
+  "rot1-.png",
+  "rot2-.png",
+  "rot3-.png",
+  "rot1-.png",
+];
 
-
-const BOXES_COUNT = COVERS.length
+const BOXES_COUNT = COVERS.length;
 
 export default function ScrollAlbumCarousel() {
-  const [position, setPosition] = useState(0)
-  const [isDragging, setIsDragging] = useState(false)
-  const [dragStart, setDragStart] = useState({ x: 0, position: 0 })
-  const [isCarouselActive, setIsCarouselActive] = useState(false)
+  const [position, setPosition] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, position: 0 });
+  const [isCarouselActive, setIsCarouselActive] = useState(false);
 
-  const containerRef = useRef<HTMLDivElement>(null)
-  const sectionRef = useRef<HTMLDivElement>(null)
-  const animationRef = useRef<number>()
+  const containerRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const animationRef = useRef<number>();
 
-  // Smooth position animation
-  const [targetPosition, setTargetPosition] = useState(0)
+  const [targetPosition, setTargetPosition] = useState(0);
 
+  // Smooth animation
   useEffect(() => {
     const animate = () => {
       setPosition((prev) => {
-        const diff = targetPosition - prev
-        if (Math.abs(diff) < 0.001) return targetPosition
-        return prev + diff * 0.12
-      })
-      animationRef.current = requestAnimationFrame(animate)
-    }
-    animationRef.current = requestAnimationFrame(animate)
+        const diff = targetPosition - prev;
+        if (Math.abs(diff) < 0.001) return targetPosition;
+        return prev + diff * 0.12;
+      });
+      animationRef.current = requestAnimationFrame(animate);
+    };
+    animationRef.current = requestAnimationFrame(animate);
 
     return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current)
-      }
-    }
-  }, [targetPosition])
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+    };
+  }, [targetPosition]);
 
-  // Check if carousel section is in viewport and centered
+  // Detect when carousel is centered
   useEffect(() => {
     const checkCarouselVisibility = () => {
-      if (!sectionRef.current) return
+      if (!sectionRef.current) return;
 
-      const rect = sectionRef.current.getBoundingClientRect()
-      const windowHeight = window.innerHeight
+      const rect = sectionRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
 
-      // Consider carousel active when section is mostly visible (at least 70% in viewport)
-      const visibleHeight = Math.min(rect.bottom, windowHeight) - Math.max(rect.top, 0)
-      const visibilityRatio = visibleHeight / windowHeight
+      const visibleHeight =
+        Math.min(rect.bottom, windowHeight) - Math.max(rect.top, 0);
+      const visibilityRatio = visibleHeight / windowHeight;
 
-      setIsCarouselActive(visibilityRatio > 0.7)
-    }
+      // Attivo solo quando è quasi completamente visibile
+      setIsCarouselActive(visibilityRatio > 0.95);
+    };
 
-    // Check on scroll
-    const handleScroll = () => {
-      checkCarouselVisibility()
-    }
+    checkCarouselVisibility();
+    window.addEventListener("scroll", checkCarouselVisibility, {
+      passive: true,
+    });
 
-    // Initial check
-    checkCarouselVisibility()
+    return () => window.removeEventListener("scroll", checkCarouselVisibility);
+  }, []);
 
-    window.addEventListener("scroll", handleScroll, { passive: true })
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-
-  // Navigation functions
+  // Navigation
   const next = useCallback(() => {
-    setTargetPosition((prev) => prev - 1)
-  }, [])
+    setTargetPosition((prev) => prev - 1);
+  }, []);
 
   const prev = useCallback(() => {
-    setTargetPosition((prev) => prev + 1)
-  }, [])
+    setTargetPosition((prev) => prev + 1);
+  }, []);
 
   const goToAlbum = useCallback(
     (index: number) => {
-      const currentIndex = Math.round(position) % BOXES_COUNT
-      let diff = index - currentIndex
+      const currentIndex = Math.round(position) % BOXES_COUNT;
+      let diff = index - currentIndex;
 
-      if (diff > BOXES_COUNT / 2) {
-        diff -= BOXES_COUNT
-      } else if (diff < -BOXES_COUNT / 2) {
-        diff += BOXES_COUNT
-      }
+      if (diff > BOXES_COUNT / 2) diff -= BOXES_COUNT;
+      else if (diff < -BOXES_COUNT / 2) diff += BOXES_COUNT;
 
-      setTargetPosition((prev) => prev + diff)
+      setTargetPosition((prev) => prev + diff);
     },
     [position],
-  )
+  );
 
-  // Scroll handling with section visibility check
+  // FIX TRACKPAD + SCROLL NATURALE
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
-      // Only intercept scroll if carousel section is active
-      if (!isCarouselActive) {
-        return // Let normal page scroll happen
-      }
+      if (!isCarouselActive) return;
 
-      const currentIndex = Math.round(position) % BOXES_COUNT
-      const normalizedIndex = ((currentIndex % BOXES_COUNT) + BOXES_COUNT) % BOXES_COUNT
-      const scrollDirection = e.deltaY > 0 ? "down" : "up"
+      // Se l’utente scrolla forte → lascia scendere la pagina
+      if (Math.abs(e.deltaY) > 25) return;
 
-      // Check if we should allow page scroll (at boundaries)
-      const shouldAllowPageScroll =
-        (normalizedIndex === 0 && scrollDirection === "up") ||
-        (normalizedIndex === BOXES_COUNT - 1 && scrollDirection === "down")
+      e.preventDefault();
 
-      if (shouldAllowPageScroll) {
-        return // Let page scroll continue
-      }
+      // Normalizzazione per trackpad
+      const delta = e.deltaY * 0.003;
+      setTargetPosition((prev) => prev + delta);
+    };
 
-      // Handle carousel scroll
-      e.preventDefault()
-      const delta = scrollDirection === "down" ? 0.5 : -0.5
-      setTargetPosition((prev) => prev + delta)
-    }
+    document.addEventListener("wheel", handleWheel, { passive: false });
+    return () => document.removeEventListener("wheel", handleWheel);
+  }, [isCarouselActive]);
 
-    // Add listener to document to catch all scroll events
-    document.addEventListener("wheel", handleWheel, { passive: false })
-    return () => document.removeEventListener("wheel", handleWheel)
-  }, [position, isCarouselActive])
-
-  // Keyboard navigation
+  // Keyboard
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Only handle keyboard if carousel is active
-      if (!isCarouselActive) return
+      if (!isCarouselActive) return;
 
       if (e.code === "ArrowLeft" || e.code === "KeyA") {
-        e.preventDefault()
-        next()
+        e.preventDefault();
+        prev();
       }
       if (e.code === "ArrowRight" || e.code === "KeyD") {
-        e.preventDefault()
-        prev()
+        e.preventDefault();
+        next();
       }
-    }
+    };
 
-    document.addEventListener("keydown", handleKeyDown)
-    return () => document.removeEventListener("keydown", handleKeyDown)
-  }, [next, prev, isCarouselActive])
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [next, prev, isCarouselActive]);
 
-  // Drag handling
+  // Drag
   const handleMouseDown = (e: React.MouseEvent) => {
-    if (!isCarouselActive) return
-    setIsDragging(true)
-    setDragStart({ x: e.clientX, position: targetPosition })
-  }
+    if (!isCarouselActive) return;
+    setIsDragging(true);
+    setDragStart({ x: e.clientX, position: targetPosition });
+  };
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging || !isCarouselActive) return
+    if (!isDragging || !isCarouselActive) return;
 
-    const deltaX = e.clientX - dragStart.x
-    const dragInfluence = deltaX * 0.01
-    setTargetPosition(dragStart.position + dragInfluence)
-  }
+    const deltaX = e.clientX - dragStart.x;
+    const dragInfluence = deltaX * 0.01;
+    setTargetPosition(dragStart.position + dragInfluence);
+  };
 
-  const handleMouseUp = () => {
-    setIsDragging(false)
-  }
+  const handleMouseUp = () => setIsDragging(false);
 
-  // Touch handling
+  // Touch
   const handleTouchStart = (e: React.TouchEvent) => {
-    if (!isCarouselActive) return
-    setIsDragging(true)
-    setDragStart({ x: e.touches[0].clientX, position: targetPosition })
-  }
+    if (!isCarouselActive) return;
+    setIsDragging(true);
+    setDragStart({ x: e.touches[0].clientX, position: targetPosition });
+  };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    if (!isDragging || !isCarouselActive) return
+    if (!isDragging || !isCarouselActive) return;
 
-    const deltaX = e.touches[0].clientX - dragStart.x
-    const dragInfluence = deltaX * 0.01
-    setTargetPosition(dragStart.position + dragInfluence)
-  }
+    const deltaX = e.touches[0].clientX - dragStart.x;
+    const dragInfluence = deltaX * 0.01;
+    setTargetPosition(dragStart.position + dragInfluence);
+  };
 
-  const handleTouchEnd = () => {
-    setIsDragging(false)
-  }
+  const handleTouchEnd = () => setIsDragging(false);
 
-  // Calculate box transforms
+  // 3D transforms
   const getBoxTransform = (index: number) => {
-    let distance = index - position
+    let distance = index - position;
 
-    while (distance > BOXES_COUNT / 2) distance -= BOXES_COUNT
-    while (distance < -BOXES_COUNT / 2) distance += BOXES_COUNT
+    while (distance > BOXES_COUNT / 2) distance -= BOXES_COUNT;
+    while (distance < -BOXES_COUNT / 2) distance += BOXES_COUNT;
 
-    const spacing = 250
-    const xPos = distance * spacing
+    const spacing = 250;
+    const xPos = distance * spacing;
 
-    let rotateY = 0
-    if (Math.abs(distance) > 0.1) {
-      rotateY = Math.sign(distance) * Math.min(Math.abs(distance) * 35, 55)
-    }
+    let rotateY = Math.sign(distance) * Math.min(Math.abs(distance) * 35, 55);
+    let scale = 1;
+    let opacity = 1;
+    let zIndex = 1000;
+    let z = 0;
 
-    let scale = 1
-    let opacity = 1
-    let zIndex = 1000
-    let z = 0
-
-    const absDistance = Math.abs(distance)
+    const absDistance = Math.abs(distance);
 
     if (absDistance < 0.3) {
-      scale = 1.2
-      z = 150
-      zIndex = 2000
-      rotateY = 0
+      scale = 1.2;
+      z = 150;
+      zIndex = 2000;
+      rotateY = 0;
     } else if (absDistance < 1.5) {
-      scale = 1
-      z = 100
-      zIndex = 1500
-      opacity = 0.95
+      scale = 1;
+      z = 100;
+      zIndex = 1500;
+      opacity = 0.95;
     } else if (absDistance < 3) {
-      scale = 0.85
-      z = 50
-      zIndex = 1000
-      opacity = 0.8
+      scale = 0.85;
+      z = 50;
+      zIndex = 1000;
+      opacity = 0.8;
     } else if (absDistance < 5) {
-      scale = 0.7
-      z = 0
-      zIndex = 500
-      opacity = 0.6
+      scale = 0.7;
+      z = 0;
+      zIndex = 500;
+      opacity = 0.6;
     } else {
-      scale = 0.6
-      z = -50
-      zIndex = 100
-      opacity = 0.4
+      scale = 0.6;
+      z = -50;
+      zIndex = 100;
+      opacity = 0.4;
     }
 
     return {
@@ -248,29 +215,20 @@ export default function ScrollAlbumCarousel() {
       opacity,
       zIndex,
       transition: isDragging ? "none" : "all 0.3s ease-out",
-    }
-  }
+    };
+  };
 
   return (
-    <div ref={sectionRef} className="relative w-full h-screen bg-transparent overflow-hidden select-none">
-      {/* Scroll indicator */}
-   
-
-      {/* Instructions *
-      <div className="absolute top-4 left-4 text-gray-400 text-sm z-30 space-y-1">
-        <p>Scroll to navigate albums</p>
-        <p>Use arrow keys or drag</p>
-        <p>Click album to select</p>
-        <div className={`text-xs ${isCarouselActive ? "text-green-400" : "text-red-400"}`}>
-          {isCarouselActive ? "● Carousel Active" : "● Carousel Inactive"}
-        </div>
-      </div>
-/}
-      {/* Main carousel container */}
+    <div
+      ref={sectionRef}
+      className="relative w-full h-screen bg-transparent overflow-hidden select-none"
+    >
       <div
         ref={containerRef}
         className={`relative w-full h-full flex items-center justify-center overflow-hidden transition-all duration-300 ${
-          isCarouselActive ? "cursor-grab active:cursor-grabbing" : "cursor-default"
+          isCarouselActive
+            ? "cursor-grab active:cursor-grabbing"
+            : "cursor-default"
         }`}
         style={{
           perspective: "7000px",
@@ -285,14 +243,13 @@ export default function ScrollAlbumCarousel() {
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        {/* Album boxes */}
         {COVERS.map((cover, index) => {
-          const style = getBoxTransform(index)
+          const style = getBoxTransform(index);
 
           return (
             <div
               key={index}
-              className="absolute w-80  h-80 "
+              className="absolute w-80 h-80"
               style={{
                 ...style,
                 left: "50%",
@@ -301,43 +258,37 @@ export default function ScrollAlbumCarousel() {
               }}
               onClick={() => isCarouselActive && goToAlbum(index)}
             >
-              <div className="relative w-full h-full group">
-                <img
-                  src={cover || "/placeholder.svg?height=224&width=224"}
-
-                  className="w-full h-full  object-cover bg-trasparent  pointer-events-none"
-                  draggable={false}
-                />
-
-            
-
-                {/* Reflection */}
-             
-              </div>
+              <img
+                src={cover}
+                className="w-full h-full object-cover pointer-events-none"
+                draggable={false}
+              />
             </div>
-          )
+          );
         })}
 
-        {/* Album indicators */}
-        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2  flex gap-5 z-10">
+        {/* Indicators */}
+        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-5 z-10">
           {COVERS.map((_, index) => {
-            const currentIndex = Math.round(position) % BOXES_COUNT
-            const normalizedCurrent = ((currentIndex % BOXES_COUNT) + BOXES_COUNT) % BOXES_COUNT
-            const isActive = index === normalizedCurrent
+            const currentIndex = Math.round(position) % BOXES_COUNT;
+            const normalizedCurrent =
+              ((currentIndex % BOXES_COUNT) + BOXES_COUNT) % BOXES_COUNT;
+            const isActive = index === normalizedCurrent;
 
             return (
               <button
                 key={index}
                 onClick={() => isCarouselActive && goToAlbum(index)}
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  isActive ? "bg-white scale-125" : "bg-gray-500 hover:bg-gray-300"
+                  isActive
+                    ? "bg-white scale-125"
+                    : "bg-gray-500 hover:bg-gray-300"
                 } ${!isCarouselActive ? "opacity-50" : ""}`}
-                aria-label={`Go to album ${index + 1}`}
               />
-            )
+            );
           })}
         </div>
       </div>
     </div>
-  )
+  );
 }

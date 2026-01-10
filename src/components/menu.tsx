@@ -1,10 +1,15 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { FaPizzaSlice, FaHamburger, FaWineBottle, FaIceCream } from "react-icons/fa"
-import { GiCupcake, GiFrenchFries } from "react-icons/gi"
-import { BiArrowBack } from "react-icons/bi"
-
+import { useState } from "react";
+import {
+  FaPizzaSlice,
+  FaHamburger,
+  FaWineBottle,
+  FaIceCream,
+} from "react-icons/fa";
+import { GiCupcake, GiFrenchFries } from "react-icons/gi";
+import { BiArrowBack } from "react-icons/bi";
+import { Badge } from "./Badge";
 
 // Menu data with enhanced information
 const menuCategories = [
@@ -22,7 +27,7 @@ const menuCategories = [
   },
   { id: "dolci", name: "Dolci", icon: <GiCupcake className="text-5xl" /> },
   { id: "gelati", name: "Gelati", icon: <FaIceCream className="text-5xl" /> },
-]
+];
 
 // Enhanced pizza data with badges
 const pizzaItems = [
@@ -56,7 +61,8 @@ const pizzaItems = [
   {
     id: 4,
     name: "Capricciosa",
-    description: "Pomodoro, mozzarella, prosciutto cotto, funghi porcini, carciofi, olive",
+    description:
+      "Pomodoro, mozzarella, prosciutto cotto, funghi porcini, carciofi, olive",
     price: "10.50",
     image: "/capricciosa-pizza.png",
     isVegetarian: false,
@@ -80,7 +86,7 @@ const pizzaItems = [
     isVegetarian: true,
     isSpicy: false,
   },
-]
+];
 
 // Enhanced panini data
 const paniniItems = [
@@ -102,7 +108,7 @@ const paniniItems = [
     isVegetarian: true,
     isSpicy: false,
   },
-]
+];
 
 // Enhanced bevande data
 const bevandeItems = [
@@ -133,39 +139,33 @@ const bevandeItems = [
     isVegetarian: true,
     isSpicy: false,
   },
-]
+];
 
 export default function EnhancedMenu() {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const getItemsByCategory = (categoryId: string) => {
     switch (categoryId) {
       case "pizzas":
-        return pizzaItems
+        return pizzaItems;
       case "panini":
-        return paniniItems
+        return paniniItems;
       case "bevande":
-        return bevandeItems
+        return bevandeItems;
       default:
-        return []
+        return [];
     }
-  }
+  };
 
   const handleBackClick = () => {
-    setSelectedCategory(null)
-  }
+    setSelectedCategory(null);
+  };
 
   return (
     <div className="min-h-screen bg-custom-brown p-12 sm:p-6 md:p-12">
       <div className="max-w-7xl mt-16 sm:mt-20 mx-auto">
         <div className="text-center mb-12 sm:mb-16">
-          <h1 className="text-3xl sm:text-4xl md:text-6xl  oswald text-white mb-3 sm:mb-4 tracking-wide px-2">
-            Menu Tradizionale
-          </h1>
-          <div className="w-16 sm:w-24 h-1 bg-custom-brown1 mx-auto mb-4 sm:mb-6"></div>
-          <p className="text-lg sm:text-xl md:text-2xl oswald text-white/90 max-w-2xl mx-auto px-4">
-            Scopri le nostre specialità preparate con ingredienti freschi e tradizione italiana
-          </p>
+          <div className="w-16 sm:w-24  mx-auto mb-4 sm:mb-6"></div>
         </div>
 
         {selectedCategory ? (
@@ -179,7 +179,10 @@ export default function EnhancedMenu() {
 
             <div className="text-center mb-8 sm:mb-12">
               <h2 className="text-3xl sm:text-4xl md:text-6xl oswald text-white mb-3 sm:mb-4 px-2">
-                {menuCategories.find((cat) => cat.id === selectedCategory)?.name}
+                {
+                  menuCategories.find((cat) => cat.id === selectedCategory)
+                    ?.name
+                }
               </h2>
               <div className="w-12 sm:w-16 h-1 bg-custom-brown1 mx-auto"></div>
             </div>
@@ -192,7 +195,10 @@ export default function EnhancedMenu() {
                 >
                   <div className="relative h-48 sm:h-56 overflow-hidden">
                     <img
-                      src={item.image || "/placeholder.svg?height=300&width=300&query=delicious food"}
+                      src={
+                        item.image ||
+                        "/placeholder.svg?height=300&width=300&query=delicious food"
+                      }
                       alt={item.name}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
@@ -236,7 +242,8 @@ export default function EnhancedMenu() {
                 onClick={handleBackClick}
                 className="flex items-center justify-center gap-2 sm:gap-3 px-8 sm:px-10 py-3 sm:py-4 bg-white/10 backdrop-blur-sm text-white text-lg sm:text-xl oswald rounded-full hover:bg-white/20 transition-all duration-300 shadow-lg border border-white/20 min-h-[48px]"
               >
-                <BiArrowBack className="text-lg sm:text-xl" /> Torna alla selezione
+                <BiArrowBack className="text-lg sm:text-xl" /> Torna alla
+                selezione
               </button>
             </div>
           </div>
@@ -258,7 +265,9 @@ export default function EnhancedMenu() {
                   {category.name}
                 </h2>
 
-                <p className="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base">Scopri tutte le nostre specialità</p>
+                <p className="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base">
+                  Scopri tutte le nostre specialità
+                </p>
 
                 <div className="mt-2 sm:mt-4 px-4 sm:px-6 py-2 bg-gradient-to-r from-custom-brown to-custom-brown1 text-white oswald rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 text-sm sm:text-base">
                   Esplora
@@ -269,5 +278,5 @@ export default function EnhancedMenu() {
         )}
       </div>
     </div>
-  )
+  );
 }

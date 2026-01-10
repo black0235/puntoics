@@ -7,6 +7,7 @@ import Footer from "./components/Footer.tsx";
 import Navbar from "./components/Navbar.tsx";
 import PuntoicsDelivery from "./PuntoicsDelivery.tsx";
 import Menu from "./Menu.tsx";
+import ScrollToTop from "./components/ScrollToTop.tsx";
 
 // import Payment from "./Payment.tsx";
 
@@ -29,6 +30,7 @@ if (!root) {
 createRoot(root).render(
   <StrictMode>
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route element={<AuthLayout />}>
           <Route index element={<App />} />
@@ -37,5 +39,5 @@ createRoot(root).render(
         </Route>
       </Routes>
     </BrowserRouter>
-  </StrictMode>
+  </StrictMode>,
 );

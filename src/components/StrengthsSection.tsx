@@ -12,21 +12,30 @@ type Strength = {
 
 const strengths: Strength[] = [
   {
-    Icon: <FaUtensils className="text-5xl md:text-6xl lg:text-7xl text-custom-brown1 mb-4" />,
+    Icon: (
+      <FaUtensils className="text-5xl md:text-6xl lg:text-7xl text-custom-brown1 mb-4" />
+    ),
     title: "Cucina Versatile",
-    description: "Dal pizza al gourmet, ogni piatto è un’opera d’arte culinaria.",
+    description:
+      "Dal pizza al gourmet, ogni piatto è un’opera d’arte culinaria.",
     animation: "flip-left",
   },
   {
-    Icon: <GiHamburger className="text-5xl md:text-6xl lg:text-7xl text-custom-brown1 mb-4" />,
+    Icon: (
+      <GiHamburger className="text-5xl md:text-6xl lg:text-7xl text-custom-brown1 mb-4" />
+    ),
     title: "Senza Glutine Eccellente",
-    description: "Piatti sicuri e deliziosi, perfetti per ogni esigenza alimentare.",
+    description:
+      "Piatti sicuri e deliziosi, perfetti per ogni esigenza alimentare.",
     animation: "fade-up",
   },
   {
-    Icon: <FaWineGlassAlt className="text-5xl md:text-6xl lg:text-7xl text-custom-brown1 mb-4" />,
+    Icon: (
+      <FaWineGlassAlt className="text-5xl md:text-6xl lg:text-7xl text-custom-brown1 mb-4" />
+    ),
     title: "Cocktail Artigianali",
-    description: "Bevande uniche che completano la tua esperienza gastronomica.",
+    description:
+      "Bevande uniche che completano la tua esperienza gastronomica.",
     animation: "flip-right",
   },
 ];
@@ -46,13 +55,13 @@ export function StrengthsSection() {
         {strengths.map((strength, index) => (
           <div
             key={index}
-            className="flex flex-col items-center border-4 md:border-8 border-white bg-custom-brown shadow-lg rounded-2xl p-6 md:p-8 text-center max-w-xs sm:max-w-sm md:max-w-md transition-transform transform hover:scale-105"
+            className="flex flex-col justify-between items-center  bg-custom-brown rounded-2xl p-4 md:p-6 shadow-lg max-w-xs sm:max-w-sm md:max-w-sm transition-transform transform hover:scale-105"
             data-aos={strength.animation}
             data-aos-duration="1000"
             data-aos-delay={`${index * 200}`}
           >
             {strength.Icon}
-            <h3 className="oswald text-3xl md:text-5xl lg:text-6xl text-white mb-3 md:mb-4 font-bold">
+            <h3 className="oswald  text-center text-3xl md:text-5xl lg:text-6xl text-white mb-3 md:mb-4 font-bold">
               {strength.title}
             </h3>
             <p className="oswald text-xl md:text-2xl text-white leading-relaxed mt-2 md:mt-4">

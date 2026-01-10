@@ -1,17 +1,20 @@
-"use client"
+"use client";
 
-import { useRef, useEffect } from "react"
+import { useRef, useEffect } from "react";
 
 interface AntipastiSectionProps {
-  gsap?: any
-  ScrollTrigger?: any
+  gsap?: any;
+  ScrollTrigger?: any;
 }
 
-export default function AntipastiSection({ gsap, ScrollTrigger }: AntipastiSectionProps) {
-  const antipastiRef = useRef<HTMLDivElement>(null)
+export default function AntipastiSection({
+  gsap,
+  ScrollTrigger,
+}: AntipastiSectionProps) {
+  const antipastiRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!gsap || !ScrollTrigger) return
+    if (!gsap || !ScrollTrigger) return;
 
     // Antipasti Section Animation GSAP
     gsap.fromTo(
@@ -28,9 +31,9 @@ export default function AntipastiSection({ gsap, ScrollTrigger }: AntipastiSecti
           start: "top 70%",
           toggleActions: "play none none reverse",
         },
-      }
-    )
-  }, [gsap, ScrollTrigger])
+      },
+    );
+  }, [gsap, ScrollTrigger]);
 
   return (
     <div
@@ -48,24 +51,41 @@ export default function AntipastiSection({ gsap, ScrollTrigger }: AntipastiSecti
 
       {/* Testo */}
       <div className="flex flex-col m-4 sm:m-6 w-full md:w-1/2 items-start text-center md:text-left">
-        <h2 className="oswald text-xl md:text-2xl text-white mb-4 md:mb-6 font-bold drop-shadow-lg">
+        <h2 className="oswald text-3xl md:text-5xl lg:text-6xl text-white mb-4 md:mb-6 font-bold drop-shadow-lg">
           Antipasti da Gustare: Un Inizio Croccante e Irresistibile
         </h2>
         <p className="oswald text-xl md:text-2xl text-white leading-relaxed">
           I nostri antipasti sono il{" "}
-          <span className="text-custom-brown font-semibold">perfetto inizio</span> per ogni pasto, pensati per{" "}
-          <span className="text-custom-brown font-semibold">stuzzicare il palato</span> e prepararti a un'esperienza
-          culinaria <span className="text-custom-brown font-semibold">unica</span>. Dalle{" "}
-          <span className="text-custom-brown font-semibold">fritture croccanti</span> alle{" "}
-          <span className="text-custom-brown font-semibold">verdure fresche</span> con condimenti ricercati, ogni piatto
-          è preparato con ingredienti di alta qualità e passione. Assapora il mix di sapori che esaltano ogni
-          ingrediente, per un inizio <span className="text-custom-brown font-semibold">indimenticabile</span> del tuo
-          pranzo o cena.
+          <span className="text-custom-brown font-semibold">
+            perfetto inizio
+          </span>{" "}
+          per ogni pasto, pensati per{" "}
+          <span className="text-custom-brown font-semibold">
+            stuzzicare il palato
+          </span>{" "}
+          e prepararti a un'esperienza culinaria{" "}
+          <span className="text-custom-brown font-semibold">unica</span>. Dalle{" "}
+          <span className="text-custom-brown font-semibold">
+            fritture croccanti
+          </span>{" "}
+          alle{" "}
+          <span className="text-custom-brown font-semibold">
+            verdure fresche
+          </span>{" "}
+          con condimenti ricercati, ogni piatto è preparato con ingredienti di
+          alta qualità e passione. Assapora il mix di sapori che esaltano ogni
+          ingrediente, per un inizio{" "}
+          <span className="text-custom-brown font-semibold">
+            indimenticabile
+          </span>{" "}
+          del tuo pranzo o cena.
           <br />
-          <span className="font-bold text-custom-brown">Prova i nostri fritti</span> che renderanno ogni boccone ancora
-          più speciale.
+          <span className="font-bold text-custom-brown">
+            Prova i nostri fritti
+          </span>{" "}
+          che renderanno ogni boccone ancora più speciale.
         </p>
       </div>
     </div>
-  )
+  );
 }

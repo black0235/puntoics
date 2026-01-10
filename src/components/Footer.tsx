@@ -215,32 +215,27 @@ export default function Footer() {
 
         {/* Footer Bottom */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 px-4">
-          <div className="text-center md:text-left">
-            <h2 className="oswald text-3xl md:text-4xl font-bold">
-              PUNTO ICS DELIVERY
-            </h2>
-          </div>
+          <div className="text-center md:text-left"></div>
 
-          <div className="flex flex-col md:flex-row items-center gap-6">
-            <div className="flex gap-4">
-              <a
-                href="/privacy"
-                className="oswald text-sm text-white hover:text-custom-brown1 transition-colors"
-              >
-                Privacy Policy
-              </a>
-              <span className="hidden md:inline">|</span>
-              <a
-                href="/termini"
-                className="oswald text-sm text-white hover:text-custom-brown1 transition-colors"
-              >
-                Termini e Condizioni
-              </a>
-            </div>
-            <p className="oswald text-sm text-gray-300">
-              © {new Date().getFullYear()} Punto ICS. Tutti i diritti riservati.
-            </p>
+          <div className="flex flex-col md:flex-row items-center gap-6"></div>
+          <div className="flex gap-4">
+            <a
+              href="/privacy"
+              className="oswald text-sm text-white hover:text-custom-brown1 transition-colors"
+            >
+              Privacy Policy
+            </a>
+            <span className="hidden md:inline">|</span>
+            <a
+              href="/termini"
+              className="oswald text-sm text-white hover:text-custom-brown1 transition-colors"
+            >
+              Termini e Condizioni
+            </a>
           </div>
+          <p className=" oswald text-sm text-gray-300">
+            © {new Date().getFullYear()} Punto ICS. Tutti i diritti riservati.
+          </p>
         </div>
       </div>
     </footer>
