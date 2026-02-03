@@ -1,17 +1,20 @@
-"use client"
+"use client";
 
-import { useRef, useEffect } from "react"
+import { useRef, useEffect } from "react";
 
 interface StorySectionProps {
-  gsap?: any
-  ScrollTrigger?: any
+  gsap?: any;
+  ScrollTrigger?: any;
 }
 
-export default function StorySection({ gsap, ScrollTrigger }: StorySectionProps) {
-  const storyRef = useRef<HTMLDivElement>(null)
+export default function StorySection({
+  gsap,
+  ScrollTrigger,
+}: StorySectionProps) {
+  const storyRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!gsap || !ScrollTrigger) return
+    if (!gsap || !ScrollTrigger) return;
 
     // Story Section Animation
     gsap.fromTo(
@@ -29,7 +32,7 @@ export default function StorySection({ gsap, ScrollTrigger }: StorySectionProps)
           toggleActions: "play none none reverse",
         },
       },
-    )
+    );
 
     gsap.fromTo(
       storyRef.current?.querySelector(".story-text"),
@@ -46,13 +49,16 @@ export default function StorySection({ gsap, ScrollTrigger }: StorySectionProps)
           toggleActions: "play none none reverse",
         },
       },
-    )
-  }, [gsap, ScrollTrigger])
+    );
+  }, [gsap, ScrollTrigger]);
 
   return (
-    <section ref={storyRef} className="bg-transparent py-16 px-6 md:py-24 md:px-12">
+    <section
+      ref={storyRef}
+      className="bg-transparent py-16 px-6 md:py-24 md:px-12"
+    >
       <div className="flex flex-col md:flex-row items-center justify-center gap-12 max-w-7xl mx-auto">
-        <div className="story-image w-1/3 h-auto flex justify-center">
+        <div className="story-image w-full md:w-1/3 flex justify-center">
           <img
             src="pizzeria1.png"
             alt="Pizzeria"
@@ -61,26 +67,33 @@ export default function StorySection({ gsap, ScrollTrigger }: StorySectionProps)
         </div>
 
         <div className="story-text w-full md:w-1/2 flex flex-col justify-center items-center md:items-start text-center md:text-left gap-6">
-          <h2 className="oswald text-4xl md:text-5xl text-white font-bold leading-tight">Passione per la Pizza</h2>
+          <h2 className="oswald text-2xl md:text-3xl lg:text-4xl text-white font-bold leading-tight">
+            Passione per la Pizza
+          </h2>
 
-          <p className="oswald text-2xl md:text-2xl text-white leading-relaxed">
-            Da <span className="text-custom-brown font-bold">Punto ICS</span>, ogni pizza è un'opera d'arte. Usiamo solo
-            ingredienti freschi e selezionati per offrirti un gusto autentico e inconfondibile.
+          <p className="oswald text-sm md:text-lg text-white leading-relaxed">
+            Da <span className="text-custom-brown font-bold">Punto ICS</span>,
+            ogni pizza è un'opera d'arte. Usiamo solo ingredienti freschi e
+            selezionati per offrirti un gusto autentico e inconfondibile.
           </p>
 
-          <h3 className="oswald text-3xl md:text-4xl text-custom-brown font-bold mt-4">Il nostro punto di forza?</h3>
+          <h3 className="oswald text-xl md:text-2xl lg:text-3xl text-custom-brown font-bold mt-4">
+            Il nostro punto di forza?
+          </h3>
 
-          <p className="oswald text-2xl md:text-2xl text-white leading-relaxed">
-            Uniamo la tradizione della pizza italiana con l'innovazione, proponendo nuove ricette e sapori in un
-            ambiente accogliente e familiare.
+          <p className="oswald text-sm md:text-lg text-white leading-relaxed">
+            Uniamo la tradizione della pizza italiana con l'innovazione,
+            proponendo nuove ricette e sapori in un ambiente accogliente e
+            familiare.
           </p>
 
-          <p className="oswald text-2xl md:text-2xl text-white leading-relaxed">
-            E per chi cerca alternative, offriamo un <span className="text-custom-brown font-bold">senza glutine</span>
+          <p className="oswald text-sm md:text-lg text-white leading-relaxed">
+            E per chi cerca alternative, offriamo un{" "}
+            <span className="text-custom-brown font-bold">senza glutine</span>
             che conquista anche i palati più esigenti!
           </p>
         </div>
       </div>
     </section>
-  )
+  );
 }

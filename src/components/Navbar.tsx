@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation, NavLink } from "react-router-dom";
 import gsap from "gsap";
@@ -6,31 +8,31 @@ import logo from "/public/logo.png";
 export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
+
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [isCallOpen, setIsCallOpen] = useState(false);
 
   // refs
   const sidebarRef = useRef<HTMLDivElement | null>(null);
   const overlayRef = useRef<HTMLDivElement | null>(null);
   const menuItemsRef = useRef<HTMLDivElement | null>(null);
+  const callMenuRef = useRef<HTMLDivElement | null>(null);
 
+  /* ---------------- SCROLL + SECTIONS ---------------- */
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
 
     const sections = document.querySelectorAll("section");
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
         });
       },
-      { threshold: 0.5 }
+      { threshold: 0.5 },
     );
 
     sections.forEach((section) => observer.observe(section));
@@ -41,21 +43,18 @@ export default function Navbar() {
     };
   }, []);
 
-  // animazioni GSAP
+  /* ---------------- SIDEBAR GSAP ---------------- */
   useEffect(() => {
     if (isOpen) {
-      // sidebar slide in
       gsap.to(sidebarRef.current, {
         x: 0,
         duration: 0.4,
         ease: "power3.out",
       });
-      // overlay fade in
       gsap.to(overlayRef.current, {
         autoAlpha: 1,
         duration: 0.3,
       });
-      // animazione dei link con stagger
       gsap.fromTo(
         menuItemsRef.current?.children || [],
         { x: -30, opacity: 0 },
@@ -66,7 +65,7 @@ export default function Navbar() {
           stagger: 0.1,
           ease: "power3.out",
           delay: 0.2,
-        }
+        },
       );
     } else {
       gsap.to(sidebarRef.current, {
@@ -81,6 +80,34 @@ export default function Navbar() {
     }
   }, [isOpen]);
 
+  /* ---------------- CALL MENU GSAP ---------------- */
+  useEffect(() => {
+    if (!callMenuRef.current) return;
+
+    if (isCallOpen) {
+      gsap.fromTo(
+        callMenuRef.current,
+        { opacity: 0, y: -10, scale: 0.95 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.25,
+          ease: "power3.out",
+        },
+      );
+    } else {
+      gsap.to(callMenuRef.current, {
+        opacity: 0,
+        y: -10,
+        scale: 0.95,
+        duration: 0.2,
+        ease: "power3.in",
+      });
+    }
+  }, [isCallOpen]);
+
+  /* ---------------- NAVIGATION ---------------- */
   const handleNavigation = (sectionId: string) => {
     setIsOpen(false);
     if (location.pathname !== "/") {
@@ -99,172 +126,343 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full px-4 py-0 flex items-center z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 w-full px-4 z-50 transition-all duration-300 ${
         isScrolled ? "bg-custom-brown shadow-md" : "bg-transparent"
       }`}
     >
       <div className="flex justify-between items-center w-full">
-        {/* Logo */}
-        <div
-          className="bg-transparent items-center m-5"
-          onClick={() => navigate("/")}
-        >
+        {/* LOGO */}
+        <div className="m-5 cursor-pointer" onClick={() => navigate("/")}>
           <img
-            src={logo}
+            src={logo || "/placeholder.svg"}
             alt="logo"
-            className=" hover:cursor-pointer rounded-2xl transition-all duration-300  md:w-20"
+            className="rounded-2xl md:w-20"
           />
         </div>
 
-        {/* Nav desktop */}
-        <nav className="hidden md:flex space-x-8 absolute left-1/2 transform -translate-x-1/2">
-          <button
-            onClick={() => handleNavigation("about")}
-            className={`oswald text-xl border-b-2 border-transparent hover:border-white transition-all duration-300 ease-in-out ${
-              activeSection === "about"
-                ? "text-white border-white"
-                : "text-white"
-            }`}
-          >
-            NICOLOSI
-          </button>
-
+        {/* NAV DESKTOP */}
+        <nav className="hidden md:flex space-x-8 absolute left-1/2 -translate-x-1/2">
           <NavLink
-            to="/puntoics-delivery"
+            to="/nicolosi"
             className={({ isActive }) =>
-              `oswald text-xl border-b-2 border-transparent hover:border-white hover:!text-white transition-all duration-300 ease-in-out ${
-                isActive ? "text-white border-white" : "text-white"
-              }`
+              `oswald text-xl border-b-2 transition
+               text-white hover:text-white focus:text-white active:text-white
+               ${isActive ? "border-white" : "border-transparent"}
+               hover:border-white`
             }
           >
-            PUNTO ICS DELIVERY
+            NICOLOSI
+          </NavLink>
+
+          <NavLink
+            to="/catania"
+            className={({ isActive }) =>
+              `oswald text-xl border-b-2 transition
+               text-white hover:text-white focus:text-white active:text-white
+               ${isActive ? "border-white" : "border-transparent"}
+               hover:border-white`
+            }
+          >
+            CATANIA
           </NavLink>
 
           <NavLink
             to="/menu"
             className={({ isActive }) =>
-              `oswald text-xl border-b-2 border-transparent hover:border-white hover:!text-white transition-all duration-300 ease-in-out ${
-                isActive ? "text-white border-white" : "text-white"
-              }`
+              `oswald text-xl border-b-2 transition
+               text-white hover:text-white focus:text-white active:text-white
+               ${isActive ? "border-white" : "border-transparent"}
+               hover:border-white`
             }
           >
             MENÙ
           </NavLink>
         </nav>
 
-        {/* CTA desktop + hamburger mobile */}
-        <div className="flex items-center space-x-3">
-          <a href="tel:+39123456789" className="hidden md:block">
+        {/* CTA + HAMBURGER */}
+        <div className="flex items-center gap-3 relative">
+          {/* CALL BUTTON */}
+          <div className="relative hidden md:block">
             <button
-              type="button"
-              className="oswald p-3 text-xl rounded-lg bg-gray-50 opacity-80 text-black hover:bg-gray-200 transition-all duration-300"
+              onClick={() => setIsCallOpen((p) => !p)}
+              className="oswald p-3 text-xl rounded-lg bg-gray-50/80 text-black hover:bg-gray-200 transition"
             >
               CHIAMACI
             </button>
-          </a>
 
-          {/* Hamburger */}
+            {isCallOpen && (
+              <div
+                ref={callMenuRef}
+                className="absolute right-0 mt-4 w-72 bg-gradient-to-br from-custom-brown to-custom-brown1 rounded-2xl shadow-2xl border border-white/10 overflow-hidden backdrop-blur-sm"
+              >
+                {/* Header del menu */}
+                <div className="px-5 py-3 border-b border-white/10 bg-white/5">
+                  <p className="oswald text-white/70 text-sm tracking-wider uppercase">
+                    Scegli la sede
+                  </p>
+                </div>
+
+                {/* Nicolosi */}
+                <a
+                  href="tel:+39123456789"
+                  onClick={() => setIsCallOpen(false)}
+                  className="group flex items-center gap-4 px-5 py-4 text-white hover:bg-white/10 transition-all duration-300"
+                >
+                  <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20 group-hover:scale-110 transition-all duration-300">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-5 h-5 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                      />
+                    </svg>
+                  </div>
+                  <div className="flex-1">
+                    <p className="oswald text-lg font-medium">Nicolosi</p>
+                    <p className="text-white/60 text-sm">+39 123 456 789</p>
+                  </div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-5 h-5 text-white/40 group-hover:text-white group-hover:translate-x-1 transition-all duration-300"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </a>
+
+                {/* Divider */}
+                <div className="mx-5 border-t border-white/10" />
+
+                {/* Catania */}
+                <a
+                  href="tel:+39987654321"
+                  onClick={() => setIsCallOpen(false)}
+                  className="group flex items-center gap-4 px-5 py-4 text-white hover:bg-white/10 transition-all duration-300"
+                >
+                  <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20 group-hover:scale-110 transition-all duration-300">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-5 h-5 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                      />
+                    </svg>
+                  </div>
+                  <div className="flex-1">
+                    <p className="oswald text-lg font-medium">Catania</p>
+                    <p className="text-white/60 text-sm">+39 987 654 321</p>
+                  </div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-5 h-5 text-white/40 group-hover:text-white group-hover:translate-x-1 transition-all duration-300"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </a>
+              </div>
+            )}
+          </div>
+
+          {/* HAMBURGER */}
           <button
-            className="md:hidden p-2 mr-2 text-white focus:outline-none"
+            className="md:hidden p-2 text-white"
             onClick={() => setIsOpen(!isOpen)}
           >
-            {isOpen ? (
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            ) : (
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            )}
+            ☰
           </button>
         </div>
       </div>
 
-      {/* Overlay */}
+      {/* OVERLAY */}
       <div
         ref={overlayRef}
-        className="fixed inset-0 bg-black bg-opacity-50 z-40 pointer-events-auto"
+        className="fixed inset-0 bg-black/50 z-40"
         style={{ opacity: 0, visibility: "hidden" }}
         onClick={() => setIsOpen(false)}
-      ></div>
+      />
 
-      {/* Sidebar mobile fullscreen */}
+      {/* SIDEBAR MOBILE */}
       <div
         ref={sidebarRef}
-        className="fixed top-0 left-0 right-0 h-full w-full bg-custom-brown z-50 flex flex-col justify-between p-6"
+        className="fixed inset-0 bg-custom-brown z-50 p-6 flex flex-col"
         style={{ transform: "translateX(100%)" }}
       >
-        {/* Pulsante Chiudi */}
         <div className="flex justify-end">
           <button
             onClick={() => setIsOpen(false)}
-            className="text-white text-2xl font-bold focus:outline-none"
+            className="text-white text-2xl"
           >
             ✕
           </button>
         </div>
 
-        {/* Links */}
-        <div
-          ref={menuItemsRef}
-          className="flex flex-col space-y-6 text-left mt-8 flex-grow"
-        >
+        <div ref={menuItemsRef} className="flex flex-col gap-6 mt-10 flex-grow">
           <button
             onClick={() => handleNavigation("about")}
-            className={`oswald text-lg text-left ${
-              activeSection === "about" ? "text-yellow-300" : "text-white"
-            }`}
+            className="oswald text-white text-lg text-left"
           >
             NICOLOSI
           </button>
           <NavLink
-            to="/puntoics-delivery"
-            className="oswald text-lg text-white text-left"
+            to="/catania"
+            className="oswald text-white text-lg"
             onClick={() => setIsOpen(false)}
           >
-            PUNTO ICS DELIVERY
+            CATANIA
           </NavLink>
           <NavLink
             to="/menu"
-            className="oswald text-lg text-white text-left"
+            className="oswald text-white text-lg"
             onClick={() => setIsOpen(false)}
           >
             MENÙ
           </NavLink>
         </div>
 
-        {/* Divider + CTA */}
-        <div className="mb-6">
-          <hr className="border-white opacity-30 mb-4" />
-          <a href="tel:+39123456789">
-            <button
-              type="button"
-              className="oswald w-full p-3 text-lg rounded-lg bg-gray-50 opacity-80 text-black hover:bg-gray-200 transition-all duration-300"
+        {/* CALL MOBILE */}
+        <div className="relative">
+          <button
+            onClick={() => setIsCallOpen((p) => !p)}
+            className="oswald w-full p-3 text-xl rounded-lg bg-gray-50/80 text-black"
+          >
+            CHIAMACI
+          </button>
+
+          {isCallOpen && (
+            <div
+              ref={callMenuRef}
+              className="mt-3 bg-gradient-to-br from-custom-brown1/80 to-custom-brown1 rounded-2xl shadow-xl border border-white/10 overflow-hidden"
             >
-              CHIAMACI
-            </button>
-          </a>
+              {/* Header */}
+              <div className="px-5 py-3 border-b border-white/10 bg-white/5">
+                <p className="oswald text-white/70 text-sm tracking-wider uppercase">
+                  Scegli la sede
+                </p>
+              </div>
+
+              {/* Nicolosi */}
+              <a
+                href="tel:+39123456789"
+                onClick={() => {
+                  setIsCallOpen(false);
+                  setIsOpen(false);
+                }}
+                className="group flex items-center gap-4 px-5 py-4 text-white hover:bg-white/10 transition-all duration-300"
+              >
+                <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-5 h-5 text-white"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                    />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <p className="oswald text-lg font-medium">Nicolosi</p>
+                  <p className="text-white/60 text-sm">+39 123 456 789</p>
+                </div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-5 h-5 text-white/40"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </a>
+
+              {/* Divider */}
+              <div className="mx-5 border-t border-white/10" />
+
+              {/* Catania */}
+              <a
+                href="tel:+39987654321"
+                onClick={() => {
+                  setIsCallOpen(false);
+                  setIsOpen(false);
+                }}
+                className="group flex items-center gap-4 px-5 py-4 text-white hover:bg-white/10 transition-all duration-300"
+              >
+                <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-5 h-5 text-white"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                    />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <p className="oswald text-lg font-medium">Catania</p>
+                  <p className="text-white/60 text-sm">+39 987 654 321</p>
+                </div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-5 h-5 text-white/40"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </header>

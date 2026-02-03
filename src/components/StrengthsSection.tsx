@@ -61,10 +61,10 @@ export function StrengthsSection() {
             data-aos-delay={`${index * 200}`}
           >
             {strength.Icon}
-            <h3 className="oswald  text-center text-3xl md:text-5xl lg:text-6xl text-white mb-3 md:mb-4 font-bold">
+            <h3 className="oswald  text-center text-2xl md:text-3xl lg:text-4xl text-white mb-3 md:mb-4 font-bold">
               {strength.title}
             </h3>
-            <p className="oswald text-xl md:text-2xl text-white leading-relaxed mt-2 md:mt-4">
+            <p className="oswald text-sm md:text-lg text-white leading-relaxed mt-2 md:mt-4">
               {strength.description}
             </p>
           </div>

@@ -5,9 +5,10 @@ import App from "./App.tsx";
 import "./index.css";
 import Footer from "./components/Footer.tsx";
 import Navbar from "./components/Navbar.tsx";
-import PuntoicsDelivery from "./PuntoicsDelivery.tsx";
 import Menu from "./Menu.tsx";
+import Nicolosi from "./Nicolosi.tsx";
 import ScrollToTop from "./components/ScrollToTop.tsx";
+import Catania from "./Catania.tsx";
 
 // import Payment from "./Payment.tsx";
 
@@ -32,10 +33,14 @@ createRoot(root).render(
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
+        {/* LandingPage senza Navbar/Footer */}
+        <Route index element={<App />} />
+
+        {/* Tutte le altre pagine con layout */}
         <Route element={<AuthLayout />}>
-          <Route index element={<App />} />
-          <Route path="puntoics-delivery" element={<PuntoicsDelivery />} />
+          <Route path="catania" element={<Catania />} />
           <Route path="menu" element={<Menu />} />
+          <Route path="nicolosi" element={<Nicolosi />} />
         </Route>
       </Routes>
     </BrowserRouter>

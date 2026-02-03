@@ -51,10 +51,10 @@ export default function AtmosferaSection({
 
       {/* Testo */}
       <div className="flex flex-col w-full md:w-1/2 mt-6 md:mt-0 text-center md:text-left">
-        <h2 className="oswald text-3xl md:text-5xl lg:text-6xl text-white mb-4 md:mb-6 font-bold drop-shadow-lg">
+        <h2 className="oswald text-2xl md:text-3xl lg:text-4xl text-white mb-4 md:mb-6 font-bold drop-shadow-lg">
           Un'Atmosfera Unica
         </h2>
-        <p className="oswald text-xl md:text-2xl text-white leading-relaxed">
+        <p className="oswald text-lg md:text-xl text-white leading-relaxed">
           Vieni a scoprire l'atmosfera calda e accogliente di{" "}
           <span className="text-custom-brown font-semibold">Punto ICS</span>. Il
           nostro locale è pensato per farti sentire a casa, con un design

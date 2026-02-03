@@ -6,7 +6,6 @@ import {
   FaSquareWhatsapp,
   FaInstagram,
   FaLocationDot,
-  FaPhone,
   FaEnvelope,
 } from "react-icons/fa6";
 import { FaPizzaSlice } from "react-icons/fa";
@@ -122,19 +121,19 @@ export default function Footer() {
             <ul className="space-y-4">
               <li className="flex items-center gap-3">
                 <FaLocationDot className="text-custom-brown1 text-xl flex-shrink-0" />
+
                 <span className="oswald text-lg">
-                  Via Canfora, 78, 95128 Catania CT
+                  Via Canfora, 78, 95128 Catania{" "}
                 </span>
               </li>
               <li className="flex items-center gap-3">
-                <FaPhone className="text-custom-brown1 text-xl flex-shrink-0" />
-                <a
-                  href="tel:+39095817885"
-                  className="oswald text-lg  text-white hover:text-custom-brown1 transition-colors"
-                >
-                  095 817 8851
-                </a>
+                <FaLocationDot className="text-custom-brown1 text-xl flex-shrink-0" />
+
+                <span className="oswald text-lg">
+                  Via Etnea, 93/95, 95030 Nicolosi{" "}
+                </span>
               </li>
+
               <li className="flex items-center gap-3">
                 <FaEnvelope className="text-custom-brown1   text-xl flex-shrink-0" />
                 <a

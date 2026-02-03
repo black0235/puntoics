@@ -16,8 +16,10 @@ import IngredientiSection from "./components/ingredienti-section";
 import ReviewsSection from "./components/reviews-section";
 import ContactSection from "./components/contact-section";
 import ScrollAlbumCarousel from "./components/pizzaCard";
+import StorySection from "./components/story-section";
+import MiniSection from "./components/miniSection";
 
-function PuntoicsDelivery() {
+function Catania() {
   const [gsapLoaded, setGsapLoaded] = useState<{
     gsap: any;
     ScrollTrigger: any;
@@ -73,7 +75,7 @@ function PuntoicsDelivery() {
           opacity: 1,
           x: 0,
           rotation: 0,
-          duration: 1.5,
+          duration: 0.7,
           ease: "power3.out",
           scrollTrigger: {
             trigger: document.querySelector(".story-section"),
@@ -88,7 +90,7 @@ function PuntoicsDelivery() {
         {
           opacity: 1,
           x: 0,
-          duration: 1.2,
+          duration: 1,
           ease: "power3.out",
           delay: 0.3,
           scrollTrigger: {
@@ -104,43 +106,14 @@ function PuntoicsDelivery() {
   }, []);
 
   return (
-    <div className="bg-custom-brown1 overflow-x-hidden">
+    <div className="bg-custom-brown1 overflow-x-hidden text-white">
       {/* Hero Section */}
       <HeroSection onGSAPLoad={handleGSAPLoad} />
 
+      <MiniSection></MiniSection>
+
       {/* Story Section */}
-      <div className="bg-custom-brown story-section flex flex-col md:flex-row items-center justify-center gap-5 p-4 sm:p-6 md:p-12">
-        <div className="flex flex-col w-full md:w-1/3 items-start text-center md:text-left">
-          <h2 className="swald text-4xl md:text-6xl lg:text-7xl oswald text-white mb-4 drop-shadow-lg">
-            Il Gusto che Racconta una Storia
-          </h2>
-          <p className="text-xl md:text-2xl oswald text-white leading-relaxed mt-4">
-            Ogni pizza racconta una storia fatta di
-            <span className="text-custom-brown1 font-semibold">
-              {" "}
-              passione e ingredienti selezionati.
-            </span>
-            <br />
-            <br />
-            Prepariamo{" "}
-            <span className="text-custom-brown1 font-semibold">
-              impasti artigianali con lievitazione naturale
-            </span>{" "}
-            e aggiungiamo solo i migliori prodotti freschi, per offrirti
-            un'esperienza di{" "}
-            <span className="text-custom-brown1 font-semibold">
-              gusto senza pari.
-            </span>
-          </p>
-        </div>
-        <div className="flex w-full md:w-1/2 items-center justify-center mt-4 md:mt-0">
-          <img
-            src="firstset.jpg"
-            alt="Pizza"
-            className="rounded-2xl w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg h-auto shadow-md transform scale-75 md:scale-90 hover:scale-100 transition-transform duration-500 mx-auto"
-          />
-        </div>
-      </div>
+      <StorySection></StorySection>
 
       {/* Sezioni aggiuntive uniformi */}
       <ServicesSection
@@ -172,4 +145,4 @@ function PuntoicsDelivery() {
   );
 }
 
-export default PuntoicsDelivery;
+export default Catania;

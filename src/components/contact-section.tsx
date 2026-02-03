@@ -1,14 +1,15 @@
-"use client"
+"use client";
 
 export default function ContactSection() {
   return (
     <section className="py-20 bg-custom-brown1 flex flex-col md:flex-row items-center justify-center gap-5 p-5">
       <div className="flex flex-col m-6 w-full md:w-1/2 items-start">
-        <h2 className="oswald text-4xl md:text-6xl text-white mb-6 text-center md:text-left font-bold drop-shadow-lg">
+        <h2 className="oswald text-2xl md:text-3xl lg:text-4xl text-white mb-6 text-center md:text-left font-bold drop-shadow-lg">
           Vieni a Trovarci
         </h2>
-        <p className="oswald text-2xl mt-5 text-white leading-relaxed">
-          Siamo aperti tutti i giorni per offrirti il meglio della pizza artigianale.
+        <p className="oswald text-sm md:text-lg mt-5 text-white leading-relaxed">
+          Siamo aperti tutti i giorni per offrirti il meglio della pizza
+          artigianale.
           <br />
           <br />
           <span className="text-custom-brown font-semibold">Orari:</span>
@@ -27,7 +28,7 @@ export default function ContactSection() {
           Indirizzo: Via Canfora, 78, 95128 Catania CT
         </p>
         <a href="tel:+39095817885">
-          <button className="mt-8 px-6 py-3 bg-custom-brown text-white text-xl oswald rounded-full transition-all duration-300">
+          <button className="mt-8 px-6 py-3 bg-custom-brown text-white text-sm md:text-lg oswald rounded-full transition-all duration-300">
             Contattaci
           </button>
         </a>
@@ -42,5 +43,5 @@ export default function ContactSection() {
         ></iframe>
       </div>
     </section>
-  )
+  );
 }

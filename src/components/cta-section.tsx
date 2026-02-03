@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 export default function CTASection() {
   return (
@@ -21,12 +21,12 @@ export default function CTASection() {
         <a href="tel:+39095817885">
           <button
             type="button"
-            className="oswald px-8 py-4 text-2xl rounded-full bg-custom-brown text-white hover:bg-custom-brown1 transition-all duration-300 shadow-lg"
+            className="oswald px-8 py-4 text-xl rounded-full bg-custom-brown text-white hover:bg-custom-brown1 transition-all duration-300 shadow-lg"
           >
             CHIAMACI ORA
           </button>
         </a>
       </div>
     </section>
-  )
+  );
 }

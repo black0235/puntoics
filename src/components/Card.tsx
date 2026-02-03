@@ -66,10 +66,10 @@ export default function DelightsSection() {
               data-aos="fade-left"
               data-aos-duration="1000"
             />
-            <h3 className="oswald text-3xl md:text-4xl lg:text-5xl text-white mb-2 font-bold">
+            <h3 className="oswald text-2xl md:text-3xl lg:text-4xl text-white mb-2 font-bold">
               {delight.title}
             </h3>
-            <p className="oswald text-xl md:text-2xl text-white leading-relaxed">
+            <p className="oswald text-sm md:text-lg text-white leading-relaxed">
               {delight.description}
             </p>
           </div>
