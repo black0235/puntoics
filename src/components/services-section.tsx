@@ -17,9 +17,9 @@ export default function ServicesSection({
 
   return (
     <>
-      <h2 className="oswald text-center mt-7 text-white text-5xl md:text-8xl drop-shadow-lg">
+      <h1 className="oswald text-center mt-7 text-white text-3xl md:text-4xl lg:text-5xl drop-shadow-lg">
         Cosa vi offriamo
-      </h2>
+      </h1>
       <div
         ref={servicesRef}
         className="flex flex-col md:flex-row h-1/2 justify-center w-auto gap-8 md:p-12 m-10"

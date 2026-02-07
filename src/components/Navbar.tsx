@@ -126,20 +126,25 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full px-4 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-custom-brown shadow-md" : "bg-transparent"
-      }`}
+      className={`
+      top-0 left-0 w-full px-4 z-50 transition-all duration-300
+      lg:fixed
+      ${isScrolled ? "lg:bg-custom-brown lg:shadow-md" : "lg:bg-transparent"}
+      bg-custom-brown
+    `}
     >
-      <div className="flex justify-between items-center w-full">
+      {/* OVERLAY SOLO MOBILE (oscura il video dietro) */}
+      <div className="absolute inset-0 lg:hidden pointer-events-none " />
+
+      <div className="relative flex justify-between items-center w-full">
         {/* LOGO */}
-        <div className="m-5 cursor-pointer" onClick={() => navigate("/")}>
+        <div className="lg:m-4 cursor-pointer" onClick={() => navigate("/")}>
           <img
-            src={logo || "/placeholder.svg"}
+            src={logo}
             alt="logo"
-            className="rounded-2xl md:w-20"
+            className="rounded-2xl scale-75 lg:scale-100 md:w-20"
           />
         </div>
-
         {/* NAV DESKTOP */}
         <nav className="hidden md:flex space-x-8 absolute left-1/2 -translate-x-1/2">
           <NavLink
@@ -326,12 +331,14 @@ export default function Navbar() {
         </div>
 
         <div ref={menuItemsRef} className="flex flex-col gap-6 mt-10 flex-grow">
-          <button
-            onClick={() => handleNavigation("about")}
-            className="oswald text-white text-lg text-left"
+          <NavLink
+            to="/nicolosi"
+            className="oswald text-white text-lg"
+            onClick={() => setIsOpen(false)}
           >
             NICOLOSI
-          </button>
+          </NavLink>
+
           <NavLink
             to="/catania"
             className="oswald text-white text-lg"

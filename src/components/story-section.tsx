@@ -77,9 +77,9 @@ export default function StorySection({
             selezionati per offrirti un gusto autentico e inconfondibile.
           </p>
 
-          <h3 className="oswald text-xl md:text-2xl lg:text-3xl text-custom-brown font-bold mt-4">
+          <h2 className="oswald  text-2xl md:text-3xl lg:text-4xl font-bold mt-4">
             Il nostro punto di forza?
-          </h3>
+          </h2>
 
           <p className="oswald text-sm md:text-lg text-white leading-relaxed">
             Uniamo la tradizione della pizza italiana con l'innovazione,

@@ -87,7 +87,10 @@ function Nicolosi() {
             autoPlay
             loop
             muted
-            className="absolute top-0 left-0 w-full h-full object-cover opacity-80"
+            playsInline
+            disablePictureInPicture
+            controls={false}
+            className="absolute top-0 left-0 w-full h-full object-cover opacity-80 pointer-events-none select-none"
           >
             <source src="homepageNic.mp4" type="video/mp4" />
           </video>
@@ -126,7 +129,7 @@ function Nicolosi() {
             <img
               src="restaurant1.jpg"
               alt="Ristorante"
-              className="rounded-2xl shadow-xl max-w-md hover:scale-105 transition-transform duration-500 object-cover"
+              className="rounded-2xl shadow-xl scale-90 lg:scale-110  transition-transform duration-500 object-cover"
             />
           </div>
           <div className="w-full md:w-2/3 space-y-6 text-white">
@@ -161,8 +164,8 @@ function Nicolosi() {
         <StrengthsSection />
 
         {/* Story Section */}
-        <section className="py-20 px-6 md:px-16 flex flex-col md:flex-row-reverse items-center gap-16 bg-custom-brown rounded-3xl shadow-xl max-w-7xl mx-auto">
-          <div className="w-full md:w-1/2 space-y-6 text-white">
+        <section className="py-8 px-6 md:px-16 flex flex-col m-8 lg:m-20 md:flex-row-reverse items-center  gap-4 bg-custom-brown rounded-3xl shadow-xl ">
+          <div className="w-full  space-y-6 text-white">
             <h2 className="oswald text-2xl md:text-3xl lg:text-4xl font-bold">
               Una Storia di Passione
             </h2>
@@ -185,7 +188,7 @@ function Nicolosi() {
               Da Punto ICS, ogni boccone è un momento di gioia.
             </p>
           </div>
-          <div className="w-full md:w-1/3 flex justify-center">
+          <div className="w-full md:w-1/3 lg:mr-5 flex justify-center">
             <img
               src="story.jpg"
               alt="Storia"

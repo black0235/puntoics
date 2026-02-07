@@ -54,7 +54,7 @@ export default function AntipastiSection({
         <h2 className="oswald text-2xl md:text-3xl lg:text-4xl text-white mb-4 md:mb-6 font-bold drop-shadow-lg">
           Antipasti da Gustare: Un Inizio Croccante e Irresistibile
         </h2>
-        <p className="oswald text-lg md:text-xl text-white leading-relaxed">
+        <p className="oswald text-sm md:text-lg text-white leading-relaxed">
           I nostri antipasti sono il{" "}
           <span className="text-custom-brown font-semibold">
             perfetto inizio

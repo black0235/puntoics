@@ -72,7 +72,10 @@ export default function HeroSection({ onGSAPLoad }: HeroSectionProps) {
         autoPlay
         loop
         muted
-        className="absolute top-0 left-0 w-full h-full object-cover opacity-80"
+        playsInline
+        disablePictureInPicture
+        controls={false}
+        className="absolute top-0 left-0 w-full h-full object-cover opacity-80 pointer-events-none select-none"
       >
         <source src="homepage.mp4" type="video/mp4" />
       </video>
